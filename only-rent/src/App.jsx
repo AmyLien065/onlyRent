@@ -1,65 +1,36 @@
 import { useState } from 'react'
-import { Route, Routes} from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 import './App.css'
-import Navbar from './component/Navbar'
+import Nav from './component/Nav';
 import Footer from './component/Footer'
-import ScrollToTop from './component/ScrollToTop.jsx'
-import Home from './sections/Home.js'
-import News from './sections/News.js'
-import About from './sections/About.js'
-
-// function App() {
-//   const [count, setCount] = useState(0)
-
-//   return (
-//     <>
-//       <div>
-//         <a href="https://vite.dev" target="_blank">
-//           <img src={viteLogo} className="logo" alt="Vite logo" />
-//         </a>
-//         <a href="https://react.dev" target="_blank">
-//           <img src={reactLogo} className="logo react" alt="React logo" />
-//         </a>
-//       </div>
-//       <h1>Vite + React</h1>
-//       <div className="card">
-//         <button onClick={() => setCount((count) => count + 1)}>
-//           count is {count}
-//         </button>
-//         <p>
-//           Edit <code>src/App.jsx</code> and save to test HMR
-//         </p>
-//       </div>
-//       <p className="read-the-docs">
-//         Click on the Vite and React logos to learn more
-//       </p>
-//     </>
-//   )
-// }
-
-// export default App
+// import ScrollToTop from './component/ScrollToTop.jsx'
+// import Home from './sections/Home.js'
+// import News from './sections/News.js'
+// import AboutUs from './sections/AboutUs.js'
 
 
-export default function App(){
-  return(
-    <div className='wrap'>
-      <ScrollToTop/>
-      <Navbar/>
-      <div className='all'>
-      <Routes>
-        <Route path='/' element={<Home/>}></Route>
-        <Route path='/News' element={<News/>}></Route>
-        <Route path="/EventDetailPage" element={<EventDetailPage/>}></Route>
-        <Route path='/Illustrations' element={<Illustrations/>}></Route>
-        <Route path='/Bar' element={<Bar/>}></Route>
-        <Route path='/BarInnerPage' element={<BarInnerPage/>}></Route>
-        <Route path='/BarRoute' element={<BarRoute/>}></Route>
-        <Route path='/Member' element={<Member/>}></Route>
-        <Route path='/About' element={<About/>}></Route>
-      </Routes>
-      </div>
-      <Footer/>
-      
+function App() {
+  return (
+    <div className="wrap">
+      <Nav />
+      {/* <ScrollToTop/> */}
+
+      {/* 測試內容 */}
+      <main style={{ paddingTop: '80px', minHeight: '100vh' }}>
+        <h1>Only Rent 測試頁面</h1>
+        <p>導航列應該出現在這裡</p>
+
+        {/* 製造滾動內容來測試 navbar 效果 */}
+        <div style={{ height: '200vh', background: 'linear-gradient(to bottom, #f0f0f0, #e0e0e0)' }}>
+          <p>滾動測試內容</p>
+          <p>繼續滾動看看 navbar 效果</p>
+
+
+        </div>
+      </main>
+      <Footer />
     </div>
-  )
+  );
 }
+
+export default App;

@@ -1,700 +1,286 @@
-@use "reset"; //use不允許其他規則寫在它之上！use必須在上面！
-@use "keyframes";
+@use "reset"; 
 @use "variables" as *;
 @use "function" as *;
-@import url('https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC&family=Special+Gothic+Expanded+One&family=Kaushan+Script&display=swap');
-// 掉字體拯救方式：點選掉字的地方F12檢查，看看是哪個字體沒抓到，然後去google font找相同名稱/相似的字體
-// google font複製?號後面到&之間的family名稱/語法
-// 最後貼進上面import的語法（一樣&之後）
 
-@font-face {
-    font-family: "atwriter";
-    src: url(../webfonts/atwriter.ttf);
+// 基礎設定
+* {
+  box-sizing: border-box;
 }
 
-/* -----------共用區------------- */
-// 區塊標題 
-.title {
-    margin: $space-ex 0 $space-xl;
-
-    * {
-        // 星號（*）表示抓該區域中的所有子孫
-        text-align: center;
-    }
-
-    h2 {
-        position: relative;
-        font-family: $family-en;
-        font-size: $f-s-xxxl;
-        @include border-b;
-        font-weight: $f-w-b;
-
-        &::before,
-        &::after {
-            content: ""; //content是必填！即使無值也必填！
-            position: absolute;
-            border-radius: $radius-ex;
-            background-color: $lesser-4;
-        }
-
-        &::before {
-            top: -3px;
-            left: -10px;
-            //left: calc(50% - 15px); 如果要剛好物件中間的話要這樣寫
-            //calc讓不同單位的東西可以加減乘除
-            //運算符號前後需要空格！
-            width: 15px;
-            height: 15px;
-
-        }
-
-        &::after {
-            bottom: 10px;
-            right: -7px;
-
-            width: 10px;
-            height: 10px;
-            // border-radius: $radius-ex;
-            // background-color: $lesser-4;
-        }
-    }
-
-    h3 {
-        font-family: $family-tc;
-        font-size: $f-s-lg;
-    }
-
-    // /* 按鈕區 */ 好像寫錯地方了
-    // .btnAnimate {
-    //     border-radius: $radius-ex;
-    // }
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  line-height: 1.6;
 }
 
-.logo {
-    width: 55px;
+// 導航列樣式
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 0 0 20px 20px;
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 1000;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+
+  // 響應式設計
+  @media (max-width: 768px) {
+    padding: 0.75rem 1rem;
+    border-radius: 0 0 15px 15px;
+  }
+
+  &.scrolled {
+    background: rgba(255, 255, 255, 0.98);
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+  }
 }
 
-.icon {
-    a {
-        width: 35px;
-        height: 35px;
-        margin: $space-xxs;
+.navbar-brand {
+  .brand-link {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #333;
+    text-decoration: none;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: #666;
     }
-}
 
-//此處迴圈不需調用，直接編譯語法即可（不可寫入function）
-@each $social in fb, ig, line {
-    .icon-#{$social} {
-        background-image: url(../images/icon-#{$social}.svg);
-
-        &:hover {
-            background-image: url(../images/icon-#{$social}-hover.svg);
-        }
+    // 手機版調整
+    @media (max-width: 768px) {
+      font-size: 1.25rem;
     }
+  }
 }
 
-.more {
-    width: 100px;
-    //height: 50px; //行高設定跟高度一樣，文字即可垂直置中
-    line-height: 50px; //單行文字垂直置中，可直接設定行高、取代高度
+.navbar-menu {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  // 手機版隱藏選單
+  @media (max-width: 768px) {
+    display: none;
+  }
+
+  .menu-item {
+    margin: 0;
+  }
+
+  .menu-link {
+    color: #666;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+    padding: 0.5rem 0;
+    display: block;
+
+    &:hover {
+      color: #333;
+    }
+  }
+}
+
+.navbar-cta {
+  .cta-button {
+    background: #333;
+    color: white !important;
+    padding: 0.75rem 1.5rem;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: inline-block;
+
+    &:hover {
+      background: #555;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    // 手機版調整
+    @media (max-width: 768px) {
+      padding: 0.6rem 1.2rem;
+      font-size: 0.9rem;
+    }
+  }
+}
+
+// 基礎頁面樣式
+.wrap {
+  min-height: 100vh;
+}
+
+main {
+  padding-top: 80px;
+  min-height: 100vh;
+
+  h1 {
     text-align: center;
-    background-color: $lesser-4;
-    margin-top: $space-lg;
-    color: $Light;
-    border-radius: $radius-ex;
+    margin: 2rem 0;
+    color: #333;
+  }
+
+  p {
+    text-align: center;
+    color: #666;
+    margin: 1rem 0;
+  }
 }
 
-/* ---------------首頁區---------- */
-#topbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: $w-100;
-    z-index: $z-ex;
-    @extend %flex-between;
-    padding: $space-xs $space-xl;
-
-    .navbar {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-end;
-
-        // 漢堡按鈕
-        .hamburger {
-            background-color: transparent;
-            border: none;
-            margin-bottom: $space-xs;
-
-            @media($mediaXl){
-                display: none;
-            }
-
-            .bar {
-                display: block;
-                width: 24px;
-                height: 3px;
-                background-color: $Charcoal ;
-                margin: $space-xxs auto;
-            }
-
-            //把漢堡按鈕 三 變成 X
-            &.is-active {
-                .bar {
-                    &:nth-child(1) {
-                        transform: //旋轉跳躍我閉著眼：）））
-                            rotate(45deg) //旋轉45度
-                            translate(5px, 6px); //位移到指定位置
-                    }
-
-                    &:nth-child(2) {
-                        opacity: 0; //漢堡按鈕的第二條槓槓直接隱藏
-                    }
-
-                    &:nth-child(3) {
-                        transform:
-                            rotate(-45deg) //旋轉135度
-                            translate(5px, -6px); //位移到指定位置
-                    }
-                }
-            }
-        }
-
-
-        .navigation {
-
-            @media ($mediaLg) {
-                //0-970寸 平板
-                @include glassmorphism;
-                border-radius: $radius-md;
-                flex-direction: column;
-                padding: $space-sm;
-
-                display: none; //漢堡按鈕一開始隱藏
-                @include amt($name:hide);
-
-                &.show{
-                    display: flex; //按下漢堡按鈕後才顯示
-                    @include amt($name:show);
-                }
-            }
-
-            ul {
-                @extend %flex-end;
-            }
-
-            .menu {
-                padding: $space-x-xs;
-                border-radius: $radius-ex;
-
-                @media ($mediaXl) {
-                    //971寸以上
-                    @include glassmorphism;
-                }
-
-                @media($mediaLg) {
-                    flex-direction: column;
-                    order: -1;
-                }
-
-                a {
-                    font-family: $family-en;
-                    font-weight: $f-w-b;
-                    margin: $space-xs;
-                    @include border-b($width: 2px, $color: transparent);
-
-                    &:hover {
-                        color: $Black;
-                        @include border-b($width: 2px, $color: $Black);
-
-                    }
-                }
-            }
-        }
+// Footer 樣式
+.footer {
+  background-color: #1a1a1a;
+  color: #ffffff;
+  padding: 3rem 0 2rem;
+  
+  .footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 3rem;
+    
+    // 響應式設計
+    @media (max-width: 968px) {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      text-align: center;
     }
-}
-
-/* 主要內容區 */
-#index {
-    section {
-        @extend %flex-center;
-        flex-direction: column;
-        height: 100vh;
-
-        @media($mediaMd) {
-            &#video {
-                height: auto;
-                padding-bottom: $space-ex;
-            }
-        }
+    
+    @media (min-width: 969px) and (max-width: 1200px) {
+      grid-template-columns: 1fr 1fr;
+      
+      .footer-left {
+        grid-column: span 2;
+      }
     }
+  }
 }
 
-.list-box {
+// 左側區域
+.footer-left {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  
+  .footer-logo {
     display: flex;
-    gap: $space-xl;
-    width: $w-80;
-    max-width: 1100px;
-    //最大寬度，只要超過這個數值，文字就不會再變形了
-    //提升閱讀注意力，將注意力集中在中間
-    //最小不一定設定，因為通常會設定RWD
-
-    .item {
-        flex: 1;
-        @include bordered;
-        border-radius: $radius-md;
-        overflow: hidden; //超過指定的框（在此處為超過圓角的圖片範圍）會被隱藏
+    align-items: center;
+    gap: 0.75rem;
+    
+    .logo-icon {
+      background-color: #00d4ff;
+      color: #000;
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.2rem;
     }
+    
+    .logo-text {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #ffffff;
+    }
+  }
+  
+  .app-download {
+    display: flex;
+    gap: 1rem;
+    
+    @media (max-width: 968px) {
+      justify-content: center;
+    }
+    
+    .download-btn {
+      display: block;
+      transition: transform 0.3s ease;
+      
+      &:hover {
+        transform: translateY(-2px);
+      }
+      
+      img {
+        height: 48px;
+        width: auto;
+      }
+    }
+  }
+  
+  .copyright {
+    color: #999;
+    font-size: 0.9rem;
+    margin-top: auto;
+    
+    @media (max-width: 968px) {
+      margin-top: 1rem;
+    }
+  }
 }
 
-/* 最新消息 */
-#news {
-    background-color: $bg-1;
-
-    article {
-        @media($mediaMd) {
-
-            //平板尺寸以下包含手機版
-            &:last-child {
-                display: none;
-            }
-        }
-
-        @media($mediaSm) {
-            &:nth-child(2) {
-                //第二個孩子以後的所有子元素
-                display: none;
-            }
-        }
-
-        a {
-            &:hover {
-                .text-box {
-                    background-color: $Light;
-                }
-
-                figure {
-                    filter: brightness(70%);
-                    // filter: saturate(20%);
-                }
-            }
-
-            figure {
-                height: 30vh;
-                transition: $speed-fast;
-
-                img {
-                    @extend %object-cover;
-                }
-            }
-
-            .text-box {
-                padding: $space-md;
-                transition: $speed-fast; //需設定在元素本人身上
-
-                h2 {
-                    @extend %list-title;
-                }
-
-                p {
-                    text-align: justify; //中文文案建議齊行，英文文案不建議使用
-                    @extend %mutiple-lines;
-                    -webkit-line-clamp: 4;
-                }
-            }
-        }
-    }
-}
-
-
-
-/* 服務項目 */
-#service {
-    background-color: $bg-2;
-
-    .list-box {
-        @media($mediaMd) {
-            flex-direction: column;
-            height: 60vh; //主軸垂直時，高度轉換為hug，影響到子元素展不開
-        }
-
-
-        .item {
-            display: flex;
-            align-items: flex-end;
-            height: 50vh;
-            background-size: cover;
-            background-position: center;
-            //背景圖片預設抓取左上角並剪裁調右下圖片範圍
-            //要背景置中要另外寫background-position:
-            //原本正確應該是background-position: center center;
-            //但預設y軸本來就是center顧可以省略
-
-            @media ($mediaMd) {
-                &:nth-child(n+3) {
-                    //第三個（含三）以後作用
-                    display: none;
-                }
-            }
-
-            @media ($mediaSm) {
-                &:nth-child(n+2) {
-                    //第2個（含2）以後作用
-                    display: none;
-                }
-            }
-
-            &:nth-child(1) {
-                background-image: url(../images/pt_svc1.jpg);
-            }
-
-            &:nth-child(2) {
-                background-image: url(../images/pt_svc2.jpg);
-            }
-
-            &:nth-child(3) {
-                background-image: url(../images/pt_svc3.jpg);
-            }
-
-            &:nth-child(4) {
-                background-image: url(../images/pt_svc4.jpg);
-            }
-
-            a {
-                width: 100%; //因為.items現在flex會讓a變成hug狀態（等於沒超過邊界），需手動限制寬度
-                padding: $space-md;
-                color: $Light;
-                background-color: $alpha-b-60;
-
-                h2 {
-                    @extend %list-title;
-                }
-
-                p {
-                    // overflow: hidden;
-                    // text-overflow: ellipsis; //省略號
-                    // white-space: nowrap; //單行省略的語法和多行省略不同！
-                    @extend %single-line;
-                }
-
-                &:hover {
-                    color: $Black;
-                    background-color: $alpha-w-40;
-                }
-            }
-        }
-    }
-}
-
-/* 相關影片 */
-#video {
-    background-image: url(../images/bg_contact.jpg);
-    background-size: cover; //自動剪裁超出的範圍，但不會置中剪裁，預設才切掉右下的東東
-    background-position: center; //和background-size: cover;通常是搭配一組，置中剪裁比較好看
-    background-attachment: fixed; //固定背景的語法，可以做簡單的視差
-
-    // @media($mediaMd) {
-    //     height: auto !important;
-    // }
-
-    div {
-        @extend %flex-center;
-        // width: 70%;//若設定width會有等比例縮放超出視窗的風險，所以改設定height
-        height: 50vh;
-
-        @media($mediaMd) {
-            width: 80%;
-            height: auto;
-            //因為上下設定的單位不同（上面設定height、下面設定width）
-            //所以要加一個height: auto;才會成功變化
-        }
-
-        video {
-            height: 100%;
-
-            @media($mediaMd) {
-                width: 100%;
-                height: auto;
-            }
-        }
-    }
-}
-
-/* 關於我們 */
-#about {
-    position: relative;
-    background-color: $lesser-1;
-
-    div {
-        position: absolute;
-        z-index: 1;
-        width: 60%;
-        height: 100%;
-        background-color: $alpha-w-70;
-
-        @extend %flex-center;
-        flex-direction: column;
-
-        @media ($mediaMd) {
-            width: 90%;
-        }
-
-        p {
-            overflow: scroll;
-            width: 90%;
-            margin-bottom: $space-xxl;
-            padding-right: $space-xs;
-
-            &::-webkit-scrollbar {
-                //整條主要滾動條(包含按鈕範圍)
-                //詳細可以去w3school瞧瞧，網址：https://www.w3schools.com/howto/howto_css_custom_scrollbar.asp
-                background-color: $lesser-1;
-                width: 12px; //控制垂直捲軸
-                height: 12px; //控制水平捲軸
-            }
-
-            &::-webkit-scrollbar-button {
-                //捲軸的上下左右箭頭
-                // display: block; //mac系統原本預設display:none
-                // background-color: $lesser-3;
-                // width: 12px;
-                // height: 12px;
-                background-size: contain; //等比例縮放，完整顯示不剪裁
-                background-position: center;
-                background-repeat: no-repeat;
-
-                //mac不太配合XD沒有顯示箭頭
-                &:vertical:single-button:start {
-                    //控制垂直方向的按鈕-上
-                    background-image: url(../images/arrow-up.svg);
-                }
-
-                &:vertical:single-button:end {
-                    //控制垂直方向的按鈕-下
-                    background-image: url(../images/arrow-down.svg);
-                }
-
-                &:horizontal:single-button:start {
-                    //控制水平方向的按鈕-左
-                    background-image: url(../images/arrow-left.svg);
-                }
-
-                &:horizontal:single-button:end {
-                    //控制水平方向的按鈕-右
-                    background-image: url(../images/arrow-right.svg);
-                }
-            }
-
-            &::-webkit-scrollbar-thumb {
-                //捲軸的滾動手柄
-                background-color: $lesser-4;
-                border-radius: $radius-ex;
-            }
-
-            &::-webkit-scrollbar-track {
-                //捲軸的軌道（較少使用）(不包含按鈕範圍)
-                background-color: orange; //會取代掉::-webkit-scrollbar設定的顏色
-                border-radius: $radius-ex;
-            }
-
-            &::-webkit-scrollbar-track-piece {
-                //沒有被手柄遮住的軌道
-                // // background-color: red;
-                // border-radius: $radius-ex;
-            }
-
-            &::-webkit-scrollbar-corner {
-                //滾動條的水平軸＆粽軸重疊的底角
-                background-color: $lesser-4;
-            }
-
-        }
-    }
-
-    video {
-        // position: absolute;
-        @extend %object-cover;
-        mix-blend-mode: overlay;
-        filter: brightness(70%) contrast(120%);
-        // opacity: .3; 透明度
-        //可以玩玩看混合模式、濾鏡等等
-    }
-}
-
-/* 聯絡我們 */
-#contact {
-    position: relative;
-    overflow: hidden;
-    @extend %flex-center;
-    flex-direction: column;
-    height: 100vh;
-    background-color: $bg-1;
-
-    @media ($mediaMd) {
-        height: auto;
-    }
-
-    .content {
-        display: flex;
-        width: $w-80;
-
-        @media ($mediaSm) {
-            flex-direction: column;
-        }
-
-        >* {
-            flex: 1;
-            margin: $space-x-xl;
-        }
-
-        h1 {
-            font-size: $f-s-xl;
-            font-weight: $f-w-m; //600
-        }
-
-        address {
-            font-size: $f-s-sm;
-            font-style: normal;
-            margin: $space-y-md;
-        }
-
-        iframe {
-            width: $w-100;
-            height: 300px;
-        }
-
-        /* 聯絡表單 */
-        #contactform {
-            >* {
-                display: block;
-                width: $w-100;
-            }
-
-            label {
-                margin: $space-xs 0 $space-xxs;
-            }
-
-            .btnAnimate {
-                @extend %btnAnimate;
-            }
-
-            input {
-                @extend %input-style;
-            }
-
-            textarea {
-                @extend %input-style;
-                border-bottom-right-radius: 0; //只針對右下圓角去設定
-
-                &::-webkit-resizer {
-                    //改「聯絡我們表單-留言區」右下的預設折角
-                    background-image: url(../images/arrow-45.svg);
-                }
-            }
-        }
-    }
-
-    figure {
-        position: absolute;
-        width: 250px;
-
-        @media ($mediaMd) {
-            width: 200px;
-        }
-
-        @media($mediaSm) {
-            display: none;
-        }
-    }
-
-    .flower_1 {
-        left: 0;
-        bottom: -30px;
-    }
-
-    .flower_2 {
-        right: -30px;
-        top: 110px;
-        transform: rotate(-30deg);
-    }
-}
-
-
-
-
-/* 頁尾區 */
-footer {
-    @extend %flex-between;
-    padding: $space-md $space-xl;
-    background-color: $lesser-4;
-    color: $Light;
-
-    @media($mediaLg) {
-        flex-direction: column;
-    }
-
-    a {
-        color: $Light;
-    }
-
-    h2 {
-        font-size: $f-s-xl;
-
-        span {
-            font-size: $f-s-md;
-        }
-    }
-
-    .sitemap {
-        display: flex;
-
-        @media ($mediaMd) {
-            margin-top: $space-xl;
-        }
-
-        @media($mediaSm) {
-            flex-direction: column;
-
-            ul {
-                padding-left: $space-md;
-
-                li {
-                    padding: $space-y-xs;
-                }
-            }
-        }
-
-        >li {
-            margin: $space-xs;
-        }
-    }
-
-    small {
-        align-self: flex-end;
-
-        @media($mediaSm) {
-            align-self: flex-start;
-            margin-top: $space-xl;
-        }
-    }
-
-    #goTop {
-        // display: none; //預設隱藏
-        width: 50px;
-        height: 50px;
-        background-color: $lesser-3;
-        border-radius: $radius-ex;
-
-        //button預設樣式有padding和border
-        border: none;
-
-        position: fixed;
-        bottom: $space-xl;
-        right: $space-xl;
-        cursor: pointer;
-        z-index: $z-ex;
-
+// 中間和右側區域
+.footer-center,
+.footer-right {
+  .footer-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: #ffffff;
+  }
+  
+  .contact-info {
+    p {
+      margin: 0.5rem 0;
+      color: #ccc;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      
+      &:first-child {
+        font-weight: 500;
+        color: #fff;
+      }
+      
+      // Email 樣式
+      &:has(a),
+      &[href*="@"] {
+        color: #00d4ff;
+        
         &:hover {
-            background-color: $lesser-2;
+          text-decoration: underline;
         }
+      }
     }
+  }
+}
+
+// 特殊樣式調整
+@media (max-width: 968px) {
+  .footer-left {
+    order: 3;
+  }
+  
+  .footer-center {
+    order: 1;
+  }
+  
+  .footer-right {
+    order: 2;
+  }
 }
