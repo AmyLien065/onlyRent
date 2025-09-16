@@ -1,0 +1,48 @@
+// keyframes
+@keyframes show{
+    from {opacity: 0;}
+    to   {opacity: 1;}
+}
+
+@keyframes hide{
+    from {opacity: 1; display: flex;} //慢慢顯示的動畫
+    to   {opacity: 0; display: none;} //慢慢關掉的動畫
+}
+
+@keyframes myrotate{
+    0% {
+        transform: rotate(0deg);
+    }
+    25%{
+        transform: rotate(3deg);
+    }
+    50%{
+        transform: rotate(-3deg);
+    }
+    75%{
+        transform: rotate(1deg);
+    }
+    100%{
+        transform: rotate(0deg);
+    }
+}
+
+@keyframes mystorm{
+    0% {
+        transform: translated(0, 0, 0);
+    }
+    25%{
+        transform: translated(4px, 0, 0);
+    }
+    50%{
+        transform: translated(-3px, 0, 0);
+    }
+    75%{
+        transform: translated(2px, 0, 0);
+    }
+    100%{
+        transform: translated(0, 0, 0);
+    }
+}
+
+// keyframes end

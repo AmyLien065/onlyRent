@@ -1,0 +1,86 @@
+@use "../variables/" as *;
+@use "./mixin" as *;
+//因為_extend也在function資料夾中，所以不可直接調用整個資料夾
+//只可調用兄弟檔案_mixin
+
+%flex-center {
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+}
+
+%flex-between {
+    display: flex;
+    justify-content: space-between;
+}
+
+%flex-end {
+    display: flex;
+    justify-content: flex-end;
+}
+
+%object-cover {
+    object-fit: cover;
+    height: 100%;
+    width: 100%; //在<img>reset已經設定過，本不需重複做，但為了讓其他人共用再寫一次
+}
+
+%btnAnimate {
+    border-radius: $radius-ex;
+    @extend %flex-center;
+    height: 60px;
+    width: 210px;
+    cursor: pointer;
+    margin: $space-md auto;
+    @include bordered;
+    color: $lesser-3;
+    letter-spacing: $space-sm;
+    padding-left: $space-sm;
+
+    &:hover {
+        @include amt($name: myrotate);
+
+        span {
+            @include amt($name: mystorm);
+        }
+    }
+}
+
+%input-style {
+    //border:1px solid var(--lesser-3);
+    padding: $space-xxs;
+    border-radius: $space-xxs;
+    color: $lesser-4;
+    font-weight: 600;
+
+    &:foucs {
+        outline: 2px solid $lesser-3;
+    }
+
+    &::placeholder {
+        color: $lesser-3;
+        font-size: $f-s-xs;
+        font-weight: $f-w-r;
+    }
+}
+
+%mutiple-lines {
+    //多行省略寫法
+    overflow: hidden; //文字超過就隱藏
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical; //垂直
+}
+
+%single-line {
+    //單行省略寫法
+    overflow: hidden;
+    text-overflow: ellipsis; //省略號
+    white-space: nowrap; //單行省略的語法和多行省略不同！
+}
+
+%list-title {
+    font-size: $f-s-lg;
+    font-weight: $f-w-m;
+    margin-bottom: $space-xs;
+}
