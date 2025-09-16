@@ -14,7 +14,7 @@ $Primary-900:#1D4D5C;
 $Basic-1:#FFFFFF; //White
 $Basic-2:#FAFAFA; //Light Background
 $Basic-3:#F7F8F9; //Disable Background
-$Basic-4:#F0F0F0; //Dark-Background / Divider
+$Basic-4:#F0F0F0; //Dark Background / Divider
 $Basic-5:#E5E6E8; //Outline
 $Basic-6:#CDCFD5; //Placeholder
 $Basic-7:#808690; //Third
@@ -29,14 +29,14 @@ $Danger: #FF3D43;
 $Warning: #FFA514;
 
 // 暫時用不到 alpha 來自甜甜老師共用
-// $alpha-w-20: rgba(255, 255, 255, 0.2);
-// $alpha-w-40: rgba(255, 255, 255, .4);
-// $alpha-w-70: rgba(255, 255, 255, .7);
+$alpha-w-20: rgba(255, 255, 255, 0.2);
+$alpha-w-40: rgba(255, 255, 255, .4);
+$alpha-w-70: rgba(255, 255, 255, .7);
 
-// $alpha-b-20: rgba(0, 0, 0, 0.2);
-// $alpha-b-60: rgba(0, 0, 0, 0.6);
+$alpha-b-20: rgba(0, 0, 0, 0.2);
+$alpha-b-60: rgba(0, 0, 0, 0.6);
 
-// $alpha-20: 0.2;
-// $alpha-30: 0.3;
-// $alpha-40: 0.4;
-// $alpha-50: 0.5;
+$alpha-20: 0.2;
+$alpha-30: 0.3;
+$alpha-40: 0.4;
+$alpha-50: 0.5;
