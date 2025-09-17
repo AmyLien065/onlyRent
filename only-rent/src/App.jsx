@@ -5,6 +5,7 @@ import Nav from './component/Nav';
 import Footer from './component/Footer'
 import Hero from './sections/Hero';
 import Features from './sections/Features';
+import Skills from './sections/Skills';
 // import ScrollToTop from './component/ScrollToTop.jsx'
 
 
@@ -16,9 +17,9 @@ function App() {
     <div className="wrap">
       <Nav />
       {/* <ScrollToTop/> */}
-
       <Hero />
       <Features />
+      <Skills />
       <Footer />
     </div>
 

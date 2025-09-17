@@ -535,6 +535,176 @@ main {
   }
 }
 
+// Feature區塊結尾
+
+// Skills 區塊樣式
+.skills {
+  padding: 100px 0;
+  background: $Basic-2; // 淺灰背景
+  
+  .skills-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+}
+
+// 標題區
+.skills-header {
+  text-align: center;
+  margin-bottom: 60px;
+  
+  .skills-subtitle {
+    color: $Primary-500;
+    font-size: $f-s-lg;
+    font-weight: $f-w-m;
+    margin-bottom: $space-md;
+    font-family: $Family-TC;
+  }
+  
+  .skills-title {
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    font-weight: $f-w-b;
+    color: $Basic-9;
+    line-height: 1.4;
+    margin-bottom: $space-xl;
+    font-family: $Family-TC;
+  }
+  
+  .skills-description {
+    font-size: $f-s-md;
+    color: $Basic-8;
+    line-height: 1.6;
+    max-width: 800px;
+    margin: 0 auto;
+    font-family: $Family-TC;
+    // white-space: nowrap; // 強制單行顯示
+
+    // 響應式處理 - 手機版允許換行
+  @media (max-width: 768px) {
+    white-space: normal;
+    max-width: 100%;
+  }
+  }
+}
+
+// 跑馬燈容器
+.skills-marquee {
+  position: relative;
+  overflow: hidden;
+  margin: 50px 0;
+  padding: 20px 0;
+  width: 100vw; // 滿版寬度
+  margin-left: calc(-50vw + 50%); // 突破容器限制，實現滿版
+  
+  // 左右漸變遮罩效果
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100px;
+    z-index: 2;
+    pointer-events: none;
+  }
+  
+  &::before {
+    left: 0;
+    background: linear-gradient(to right, $Basic-2, rgba($Basic-2, 0));
+  }
+  
+  &::after {
+    right: 0;
+    background: linear-gradient(to left, $Basic-2, rgba($Basic-2, 0));
+  }
+}
+
+// 跑馬燈軌道
+.marquee-track {
+  display: flex;
+  gap: 20px;
+  animation: marquee 30s linear infinite;
+  width: max-content;
+  
+  // 暫停動畫當滑鼠懸停
+  &:hover {
+    animation-play-state: paused;
+  }
+}
+
+// 跑馬燈動畫
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%); // 移動一半距離實現無縫循環
+  }
+}
+
+// 技能標籤
+.skill-tag {
+  background: $Primary-500;
+  color: $Basic-1;
+  padding: 12px 24px;
+  border-radius: 25px;
+  font-size: $f-s-md;
+  font-weight: $f-w-m;
+  font-family: $Family-TC;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  
+  // Hover 效果
+  &:hover {
+    background: $Primary-400;
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba($Primary-500, 0.3);
+  }
+  
+  // 響應式調整
+  @media (max-width: 768px) {
+    padding: 10px 20px;
+    font-size: $f-s-sm;
+  }
+}
+
+// 底部說明文字
+.skills-footer {
+  text-align: center;
+  color: $Basic-6;
+  font-size: $f-s-sm;
+  margin-top: 40px;
+  font-family: $Family-TC;
+  
+  @media (max-width: 768px) {
+    font-size: $f-s-xs;
+    margin-top: 30px;
+  }
+}
+
+// 響應式調整
+@media (max-width: 968px) {
+  .skills {
+    padding: 80px 0;
+  }
+  
+  .skills-marquee {
+    margin: 40px 0;
+    
+    &::before,
+    &::after {
+      width: 50px;
+    }
+  }
+  
+  .marquee-track {
+    gap: 15px;
+    animation-duration: 25s; // 手機版稍快一點
+  }
+}
+
 
 
 
