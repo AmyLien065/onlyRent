@@ -6,6 +6,7 @@ import Footer from './component/Footer'
 import Hero from './sections/Hero';
 import Features from './sections/Features';
 import Skills from './sections/Skills';
+import Steps from './sections/Steps';
 // import ScrollToTop from './component/ScrollToTop.jsx'
 
 
@@ -20,6 +21,7 @@ function App() {
       <Hero />
       <Features />
       <Skills />
+      <Steps />
       <Footer />
     </div>
 

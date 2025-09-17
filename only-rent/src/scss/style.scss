@@ -704,7 +704,216 @@ main {
     animation-duration: 25s; // 手機版稍快一點
   }
 }
+// Skills區塊結尾
 
+
+// Steps 區塊樣式
+.steps {
+  padding: 100px 0;
+  background: $Basic-1;
+  border-radius: 0 0 50px 50px; // 下緣圓角，與下個section的交界處
+  position: relative;
+  z-index: 1;
+  
+  .steps-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 60px;
+    align-items: flex-start;
+    
+    // 響應式設計
+    @media (max-width: 968px) {
+      grid-template-columns: 1fr;
+      gap: 40px;
+      text-align: center;
+    }
+  }
+}
+
+// 左側標題區
+.steps-header {
+  @media (max-width: 968px) {
+    order: 1;
+  }
+  
+  .steps-subtitle {
+    color: $Primary-500;
+    font-size: $f-s-lg;
+    font-weight: $f-w-m;
+    margin-bottom: $space-md;
+    font-family: $Family-TC;
+  }
+  
+  .steps-title {
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    font-weight: $f-w-b;
+    color: $Basic-9;
+    line-height: 1.4;
+    margin-bottom: $space-xl;
+    font-family: $Family-TC;
+  }
+  
+  .steps-description {
+    font-size: $f-s-md;
+    color: $Basic-8;
+    line-height: 1.6;
+    font-family: $Family-TC;
+    
+    @media (max-width: 968px) {
+      br {
+        display: none;
+      }
+    }
+  }
+}
+
+// 右側步驟卡片區
+.steps-cards {
+  display: flex;
+  flex-direction: row; // 改為並排
+  gap: 30px;
+  
+  @media (max-width: 968px) {
+    order: 2;
+    flex-direction: column; // 手機版才改為垂直
+  }
+}
+
+// 步驟卡片
+.step-card {
+  flex: 1;
+  border-radius: 25px;
+  padding: 30px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 400px;
+  color: $Basic-1;
+  
+  // 使用背景圖片
+  &:nth-child(1) {
+    background-image: url('/images/OR_stepCard1.png');
+  }
+  
+  &:nth-child(2) {
+    background-image: url('/images/OR_stepCard2.png');
+  }
+  
+  &:nth-child(3) {
+    background-image: url('/images/OR_stepCard3.png');
+  }
+  
+  // 共同的背景設定
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  
+  // 添加深色遮罩讓文字更清楚
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 1;
+  }
+  
+  // 確保內容在遮罩之上
+  * {
+    position: relative;
+    z-index: 2;
+  }
+  
+  @media (max-width: 768px) {
+    min-height: 300px;
+    padding: 20px;
+  }
+}
+
+// 步驟編號
+.step-number {
+  background: $Basic-1;
+  color: $Basic-9;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: $f-s-lg;
+  font-weight: $f-w-b;
+  font-family: $Family-TC;
+  align-self: flex-start;
+  margin-bottom: 20px;
+}
+
+// 移除步驟圖片（改用背景圖）
+// .step-image 已刪除，因為使用背景圖片
+
+// 步驟內容
+.step-content {
+  margin-top: auto; // 推到底部
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  
+  .step-text {
+    font-size: $f-s-sm;
+    color: $Basic-1; // 白色文字
+    line-height: 1.5;
+    margin: 0;
+    font-family: $Family-TC;
+  }
+  
+  .step-button {
+    background: $Primary-500;
+    color: $Basic-1;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 25px;
+    font-size: $f-s-md;
+    // font-weight: $f-w-m;
+    font-family: $Family-TC;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    align-self: flex-start;
+    white-space: nowrap;
+
+    
+    @media (max-width: 768px) {
+      align-self: center;
+    }
+    
+    &:hover {
+      background: $Primary-400;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba($Primary-500, 0.3);
+    }
+  }
+}
+
+// 響應式調整
+@media (max-width: 968px) {
+  .steps {
+    padding: 80px 0;
+  }
+  
+  .step-card {
+    background: $Basic-1;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    
+    .step-image img {
+      border-radius: 12px;
+    }
+  }
+}
 
 
 
