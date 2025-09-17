@@ -1030,7 +1030,190 @@ main {
 }
 // AboutUs區塊結尾
 
+// FAQ 區塊樣式
+.faq {
+  padding: 100px 0;
+  background: $Basic-1;
+  
+  .faq-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+}
 
+// 標題區
+.faq-header {
+  text-align: center;
+  margin-bottom: 60px;
+  
+  .faq-subtitle {
+    color: $Primary-500;
+    font-size: $f-s-lg;
+    font-weight: $f-w-m;
+    margin-bottom: $space-md;
+    font-family: $Family-TC;
+  }
+  
+  .faq-title {
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    font-weight: $f-w-b;
+    color: $Basic-9;
+    line-height: 1.4;
+    margin: 0;
+    font-family: $Family-TC;
+  }
+}
+
+// FAQ 列表
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1px; // 極細分隔線效果
+}
+
+// FAQ 項目
+.faq-item {
+  background: $Basic-1;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease;
+  
+  &:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  }
+  
+  // 展開狀態
+  &.open {
+    .faq-icon {
+      transform: rotate(180deg);
+    }
+    
+    .faq-answer {
+      max-height: 200px;
+      padding: 0 30px 25px;
+      opacity: 1;
+    }
+  }
+}
+
+// 問題區域
+.faq-question {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 25px 30px;
+  cursor: pointer;
+  background: $Basic-1;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background: $Basic-2;
+  }
+  
+  .question-number {
+    color: $Primary-500;
+    font-weight: $f-w-b;
+    font-size: $f-s-lg;
+    font-family: $Family-TC;
+    min-width: 25px;
+  }
+  
+  .question-text {
+    flex: 1;
+    font-size: $f-s-lg;
+    font-weight: $f-w-m;
+    color: $Basic-9;
+    font-family: $Family-TC;
+    line-height: 1.4;
+  }
+  
+  .faq-icon {
+    color: $Basic-7;
+    transition: transform 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+// 答案區域
+.faq-answer {
+  max-height: 0;
+  padding: 0 30px;
+  opacity: 0;
+  overflow: hidden;
+  transition: all 0.4s ease;
+  background: $Basic-2;
+  
+  .answer-content {
+    font-size: $f-s-md;
+    color: $Basic-8;
+    line-height: 1.7;
+    font-family: $Family-TC;
+    margin-left: 40px; // 對齊問題文字
+    
+    @media (max-width: 768px) {
+      margin-left: 0;
+    }
+  }
+}
+
+// 響應式設計
+@media (max-width: 968px) {
+  .faq {
+    padding: 80px 0;
+  }
+  
+  .faq-container {
+    padding: 0 1rem;
+  }
+  
+  .faq-question {
+    padding: 20px;
+    gap: 12px;
+    
+    .question-number {
+      font-size: $f-s-md;
+      min-width: 20px;
+    }
+    
+    .question-text {
+      font-size: $f-s-md;
+    }
+  }
+  
+  .faq-item.open .faq-answer {
+    padding: 0 20px 20px;
+    
+    .answer-content {
+      font-size: $f-s-sm;
+    }
+  }
+}
+
+@media (max-width: 640px) {
+  .faq {
+    padding: 60px 0;
+  }
+  
+  .faq-header {
+    margin-bottom: 40px;
+    
+    .faq-subtitle {
+      font-size: $f-s-md;
+    }
+  }
+  
+  .faq-question {
+    padding: 18px;
+    
+    .question-text {
+      font-size: $f-s-sm;
+    }
+  }
+}
 
 
 // Footer 樣式
