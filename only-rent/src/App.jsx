@@ -7,6 +7,7 @@ import Hero from './sections/Hero';
 import Features from './sections/Features';
 import Skills from './sections/Skills';
 import Steps from './sections/Steps';
+import AboutUs from './sections/AboutUs';
 // import ScrollToTop from './component/ScrollToTop.jsx'
 
 
@@ -22,6 +23,7 @@ function App() {
       <Features />
       <Skills />
       <Steps />
+      <AboutUs />
       <Footer />
     </div>
 
