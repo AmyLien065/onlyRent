@@ -1387,6 +1387,7 @@ main {
   background-color: $Basic-10;
   color: $Basic-1;
   padding: 3rem 0 2rem;
+  position: relative;
   
   .footer-container {
     max-width: 1200px;
@@ -1511,6 +1512,50 @@ main {
       }
     }
   }
+
+  // ScrollToTop 按鈕樣式 - 添加到 Footer 區塊的最後
+.scroll-to-top-btn {
+  position: absolute;
+  bottom: 2rem;
+  right: 2rem;
+  width: 50px;
+  height: 50px;
+  background: $Primary-500;
+  border: none;
+  border-radius: 50%;
+  color: $Basic-1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 15px rgba($Primary-500, 0.3);
+  transition: all 0.3s ease;
+  z-index: 10;
+  
+  &:hover {
+    background: $Primary-400;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba($Primary-500, 0.4);
+  }
+  
+  &:active {
+    transform: translateY(-1px);
+  }
+  
+  // 手機版調整
+  @media (max-width: 768px) {
+    width: 45px;
+    height: 45px;
+    bottom: 1rem;
+    right: 1rem;
+    
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
+}
+
 }
 
 // 特殊樣式調整
@@ -1525,5 +1570,42 @@ main {
   
   .footer-right {
     order: 2;
+  }
+}
+
+// Footer結尾
+
+
+
+
+// Footer 需要相對定位
+.footer {
+  background-color: $Basic-10;
+  color: $Basic-1;
+  padding: 3rem 0 2rem;
+  position: relative; // 添加這行讓 ScrollToTop 按鈕能正確定位
+  
+  .footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 3rem;
+    
+    // 響應式設計
+    @media (max-width: 968px) {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      text-align: center;
+    }
+    
+    @media (min-width: 969px) and (max-width: 1200px) {
+      grid-template-columns: 1fr 1fr;
+      
+      .footer-left {
+        grid-column: span 2;
+      }
+    }
   }
 }

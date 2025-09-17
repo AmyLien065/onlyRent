@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, forwardRef } from "react";
 
-const FAQ = () => {
+const FAQ = forwardRef((props, ref) => {
   const [openIndex, setOpenIndex] = useState(0); // 預設第一個問題展開
 
   // FAQ 數據
@@ -41,7 +41,7 @@ const FAQ = () => {
   };
 
   return (
-    <section className="faq" id="faq">
+    <section className="faq" id="faq" ref={ref}>
       <div className="faq-container">
         {/* 標題區 */}
         <div className="faq-header">
@@ -93,6 +93,8 @@ const FAQ = () => {
       </div>
     </section>
   );
-};
+});
+
+FAQ.displayName = "FAQ";
 
 export default FAQ;

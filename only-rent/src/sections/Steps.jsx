@@ -1,6 +1,6 @@
-import React from "react";
+import React, { forwardRef } from "react";
 
-const Steps = () => {
+const Steps = forwardRef((props, ref) => {
   // 步驟數據
   const steps = [
     {
@@ -27,7 +27,7 @@ const Steps = () => {
   ];
 
   return (
-    <section className="steps" id="steps">
+    <section className="steps" id="steps" ref={ref}>
       <div className="steps-container">
         {/* 左側標題區 */}
         <div className="steps-header">
@@ -63,6 +63,8 @@ const Steps = () => {
       </div>
     </section>
   );
-};
+});
+
+Steps.displayName = "Steps";
 
 export default Steps;

@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, forwardRef } from "react";
 
-const Features = () => {
+const Features = forwardRef((props, ref) => {
   const [activeTab, setActiveTab] = useState("seeker"); // "seeker" 或 "provider"
 
   // Tab 內容數據
@@ -74,7 +74,7 @@ const Features = () => {
   const currentContent = tabContent[activeTab];
 
   return (
-    <section className="features" id="features">
+    <section className="features" id="features" ref={ref}>
       <div className="features-container">
         {/* Tab 切換區 */}
         <div className="tab-switcher">
@@ -144,6 +144,9 @@ const Features = () => {
       </div>
     </section>
   );
-};
+});
+
+// 設定 displayName 用於開發工具
+Features.displayName = "Features";
 
 export default Features;

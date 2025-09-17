@@ -1,6 +1,14 @@
 import React from "react";
 
 const Footer = () => {
+  // 滾動到頂部的函數
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  };
+
   return (
     <footer className="footer">
       <div className="footer-container">
@@ -48,6 +56,29 @@ const Footer = () => {
             <p>1 North Bridge Road #01-37 High Street Centre Singapore 179094</p>
             <p>support@onlyrent.sg</p>
           </div>
+          
+          {/* ScrollToTop 按鈕 */}
+          <button 
+            className="scroll-to-top-btn"
+            onClick={scrollToTop}
+            title="回到頂部"
+            aria-label="回到頂部"
+          >
+            <svg 
+              width="24" 
+              height="24" 
+              viewBox="0 0 24 24" 
+              fill="none"
+            >
+              <path 
+                d="M7 14L12 9L17 14" 
+                stroke="currentColor" 
+                strokeWidth="2" 
+                strokeLinecap="round" 
+                strokeLinejoin="round"
+              />
+            </svg>
+          </button>
         </div>
       </div>
     </footer>
