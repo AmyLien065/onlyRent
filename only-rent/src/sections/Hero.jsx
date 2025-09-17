@@ -25,11 +25,11 @@ const Hero = () => {
           {/* CTA 按鈕組 */}
           <div className="hero-cta">
             <a href="#download" className="download-btn">
-              <img src="/images/OR_hero_AppStore.png" alt="Download on the App Store" />
+              <img src="./images/OR_hero_AppStore.png" alt="Download on the App Store" />
             </a>
             
             <a href="#download" className="download-btn">
-              <img src="/images/OR_hero_GooglePlay.png" alt="Get it on Google Play" />
+              <img src="./images/OR_hero_GooglePlay.png" alt="Get it on Google Play" />
             </a>
           </div>
         </div>
