@@ -294,29 +294,19 @@ main {
   justify-content: center;
   margin-bottom: 80px;
   position: relative;
-  
-  // 底線背景
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 400px;
-    height: 2px;
-    background: $Basic-5;
-    
-    @media (max-width: 640px) {
-      width: 300px;
-    }
+  gap: 60px;
+
+   @media (max-width: 640px) {
+    gap: 40px; // 手機版縮小間距
   }
+  
 }
 
 .tab-btn {
   background: transparent;
   border: none;
   padding: 15px 40px;
-  font-size: $f-s-xl;
+  font-size: $f-s-lg;
   font-weight: $f-w-m;
   color: $Basic-7;
   cursor: pointer;
@@ -326,41 +316,41 @@ main {
   
   @media (max-width: 640px) {
     padding: 12px 30px;
-    font-size: $f-s-lg;
+    font-size: $f-s-md;
   }
   
-  // Hover 效果
+
+  
+// 預設狀態：最淺的灰色底線
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0; // 調整到底部對齊
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 2px;
+    background: $Basic-5; // 預設最淺灰色
+    transition: all 0.3s ease;
+  }
+  
+  // Hover 狀態：略深的灰色
   &:hover:not(.active) {
     color: $Basic-8;
     
     &::after {
-      content: '';
-      position: absolute;
-      bottom: -2px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 60%;
-      height: 2px;
-      background: $Basic-6;
-      transition: all 0.3s ease;
+      background: $Basic-7; // Hover 時變成略深的灰色
     }
   }
   
-  // 激活狀態
+  // 激活狀態：黑色
   &.active {
     color: $Basic-9;
     font-weight: $f-w-b;
     
     &::after {
-      content: '';
-      position: absolute;
-      bottom: -2px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 80%;
-      height: 3px;
-      background: $Basic-9;
-      transition: all 0.3s ease;
+      background: $Basic-9; // 激活時變成黑色
+      height: 3px; // 激活時可以稍微粗一點
     }
   }
 }
@@ -396,11 +386,11 @@ main {
   }
   
   .content-title {
-    font-size: clamp(1.8rem, 4vw, 2.5rem);
-    font-weight: $f-w-b;
+    font-size: 1.875rem;
+    font-weight: $f-w-r;
     color: $Basic-9;
     line-height: 1.4;
-    max-width: 800px;
+    max-width: 1100px;
     margin: 0 auto;
     font-family: $Family-TC;
   }
@@ -410,13 +400,14 @@ main {
 .features-grid {
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 24px;
   
-  // 第一排 - 3個卡片
+  // 第一排 - 3個卡片（需要 overflow hidden）
   .features-row-1 {
     display: flex;
     flex-direction: row;
-    gap: 30px;
+    gap: 24px;
+    
     
     @media (max-width: 968px) {
       flex-direction: column;
@@ -424,14 +415,18 @@ main {
     
     .feature-card {
       flex: 1;
+      // 第一排卡片需要 overflow hidden（根據圖三設計稿）
+      height: 350px;
+      width: 320px;
+      overflow: hidden;
     }
   }
   
-  // 第二排 - 2個卡片
+  // 第二排 - 2個卡片（文字圖片左右並排）
   .features-row-2 {
     display: flex;
     flex-direction: row;
-    gap: 30px;
+    gap: 24px;
     
     @media (max-width: 968px) {
       flex-direction: column;
@@ -439,19 +434,45 @@ main {
     
     .feature-card {
       flex: 1;
+      // 第二排卡片改為左右並排布局
+      flex-direction: row;
+      align-items: center;
+      gap: 30px;
+      
+      @media (max-width: 768px) {
+        flex-direction: column;
+        gap: 20px;
+      }
+      
+      // 內容區域調整
+      .feature-content {
+        flex: 1;
+        min-width: 0; // 防止文字溢出
+      }
+      
+      // 圖片區域調整
+      .feature-visual {
+        flex: 0 0 auto;
+        min-width: 200px; // 給圖片一個最小寬度
+        
+        @media (max-width: 768px) {
+          min-width: auto;
+          width: 100%;
+        }
+      }
     }
   }
 }
 
-// 功能卡片
+// 功能卡片基礎樣式
 .feature-card {
   background: $Basic-1;
   border-radius: 20px;
-  padding: 30px;
+  padding: 40px;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
   transition: all 0.3s ease;
   display: flex;
-  flex-direction: column;
+  flex-direction: column; // 第一排默認為垂直布局
   gap: 20px;
   
   &:hover {
@@ -476,7 +497,7 @@ main {
   .feature-description {
     font-size: $f-s-md;
     color: $Basic-8;
-    line-height: 1.6;
+    line-height: 1.5;
     margin: 0;
     font-family: $Family-TC;
   }
@@ -492,6 +513,15 @@ main {
     max-width: 250px;
     height: auto;
     border-radius: 12px;
+    
+    // 針對第二排的圖片調整
+    .features-row-2 & {
+      max-width: 200px;
+      
+      @media (max-width: 768px) {
+        max-width: 250px;
+      }
+    }
     
     // 金流保障圖標特殊處理
     &[alt*="金流保障"] {
