@@ -9,6 +9,7 @@ import Skills from './sections/Skills';
 import Steps from './sections/Steps';
 import AboutUs from './sections/AboutUs';
 import FAQ from './sections/FAQ';
+import CTA from './sections/CTA';
 // import ScrollToTop from './component/ScrollToTop.jsx'
 
 
@@ -26,6 +27,7 @@ function App() {
       <Steps />
       <AboutUs />
       <FAQ />
+      <CTA />
       <Footer />
     </div>
 
