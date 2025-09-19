@@ -17,6 +17,7 @@ body {
 }
 
 // 基礎頁面樣式
+// 確保頁面內容不被 navbar 遮擋
 .wrap {
   min-height: 100vh;
 }
@@ -40,32 +41,42 @@ main {
 
 
 
+
 // Nav 導航列樣式
 .navbar {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  // background: rgba(255, 255, 255, 0.95);
   background: linear-gradient(to left,$Basic-2, $Basic-7);
   backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px); // Safari 支援
   border-radius: 0 0 20px 20px;
   padding: 1rem 2rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  z-index: 1000;
+  z-index: 9999;
   transition: all 0.3s ease;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  
+  // 添加 transform 創建新的堆疊上下文
+  transform: translateZ(0);
+  will-change: transform;
 
-  // 響應式設計
-  @media (max-width: 768px) {
+   // 平板版調整（641px - 970px）
+  @media (min-width: 641px) and (max-width: 970px) {
+    padding: 0.75rem 1.5rem;
+    border-radius: 0 0 15px 15px;
+  }
+
+  // 手機版調整（≤640px）
+  @media ($mediaSm) {
     padding: 0.75rem 1rem;
     border-radius: 0 0 15px 15px;
   }
 
   &.scrolled {
-    // color: $Primary-500;
     background: $Primary-500;
     box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
   }
@@ -80,11 +91,17 @@ main {
     transition: color 0.3s ease;
 
     &:hover {
-      color: #666;
+      color: $Primary-300;
+      transform: scale(1.05);
+    }
+
+    // 平板版調整
+    @media (min-width: 641px) and (max-width: 970px) {
+      font-size: 1.3rem;
     }
 
     // 手機版調整
-    @media (max-width: 768px) {
+    @media ($mediaSm) {
       font-size: 1.25rem;
     }
   }
@@ -97,13 +114,44 @@ main {
   margin: 0;
   padding: 0;
 
-  // 手機版隱藏選單
-  @media (max-width: 768px) {
-    display: none;
+  // 平板版調整
+  @media (min-width: 641px) and (max-width: 970px) {
+    gap: 1.5rem;
   }
+
+// 手機版隱藏選單，改用漢堡選單
+  @media ($mediaSm) {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 280px;
+    height: 100vh;
+    background: linear-gradient(to bottom, $Basic-2, $Basic-1);
+    backdrop-filter: blur(20px);
+     -webkit-backdrop-filter: blur(20px);
+    flex-direction: column;
+    padding: 80px 2rem 2rem;
+    gap: 0;
+    transition: right 0.3s ease;
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+    z-index: 9998;
+
+    &.menu-open {
+      right: 0;
+    }
+  }
+
 
   .menu-item {
     margin: 0;
+
+    @media ($mediaSm) {
+      border-bottom: 1px solid rgba($Basic-5, 0.5);
+      
+      &:last-child {
+        border-bottom: none;
+      }
+    }
   }
 
   .menu-link {
@@ -115,8 +163,28 @@ main {
     display: block;
 
     &:hover {
-      color: #333;
+      color: $Primary-300;
     }
+
+    // 平板版調整
+    @media (min-width: 641px) and (max-width: 970px) {
+      font-size: 0.9rem;
+      padding: 0.4rem 0;
+    }
+
+    // 手機版調整
+    @media ($mediaSm) {
+      color: $Basic-9;
+      padding: 1rem 0;
+      font-size: 1rem;
+      border-radius: 8px;
+      
+      &:hover {
+      color: $Primary-500;
+      background: rgba($Primary-500, 0.1);
+      }
+    }
+
   }
 }
 
@@ -132,19 +200,112 @@ main {
     display: inline-block;
 
     &:hover {
-      background: #555;
+      background: $Basic-8;
       transform: translateY(-1px);
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     }
 
-    // 手機版調整
-    @media (max-width: 768px) {
+    // 平板版調整
+    @media (min-width: 641px) and (max-width: 970px) {
       padding: 0.6rem 1.2rem;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
+    }
+
+    // 手機版：移到漢堡選單內
+    @media ($mediaSm) {
+      display: none;
     }
   }
 }
 
+// 漢堡選單按鈕（手機版專用）
+.hamburger-btn {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  z-index: 10000;
+
+  @media ($mediaSm) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .hamburger-line {
+    width: 25px;
+    height: 3px;
+    background: $Basic-1;
+    margin: 3px 0;
+    transition: all 0.3s ease;
+    border-radius: 2px;
+  }
+
+  // X 形狀動畫
+  &.menu-open {
+    .hamburger-line:nth-child(1) {
+      transform: rotate(45deg) translate(6px, 6px);
+    }
+    
+    .hamburger-line:nth-child(2) {
+      opacity: 0;
+    }
+    
+    .hamburger-line:nth-child(3) {
+      transform: rotate(-45deg) translate(6px, -6px);
+    }
+  }
+}
+
+// 手機版選單內的 CTA 按鈕
+.mobile-menu-cta {
+  display: none;
+
+  @media ($mediaSm) {
+    display: block;
+    margin-top: 2rem;
+    
+    .cta-button {
+      background: $Primary-500;
+      color: white !important;
+      padding: 0.75rem 1.5rem;
+      border-radius: 25px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      display: block;
+      text-align: center;
+      width: 100%;
+
+      &:hover {
+        background: $Primary-400;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 15px rgba($Primary-500, 0.3);
+      }
+    }
+  }
+}
+
+// 背景遮罩（漢堡選單開啟時）
+.menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 9997;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+
+  &.overlay-open {
+    opacity: 1;
+    visibility: visible;
+  }
+}
 
 
 // Hero 區塊樣式
@@ -156,7 +317,19 @@ main {
   background-position: center;
   background-repeat: no-repeat;
   position: relative;
+  z-index: 1; // 設定較低的 z-index
   overflow: hidden;
+
+  // 平板版調整
+  @media (min-width: 641px) and (max-width: 970px) {
+    padding: 100px 0 80px;
+  }
+  
+  // 手機版調整
+  @media ($mediaSm) {
+    padding: 90px 0 60px;
+   
+  }
   
   .hero-container {
     max-width: 1200px;
@@ -168,11 +341,19 @@ main {
     align-items: center;
     min-height: 70vh;
     
-    // 響應式設計
-    @media (max-width: 968px) {
+    // 平板版調整
+    @media (min-width: 641px) and (max-width: 970px) {
+      padding: 0 1.5rem;
+      gap: 3rem;
+    }
+    
+    // 手機版調整
+    @media ($mediaSm) {
       grid-template-columns: 1fr;
       gap: 2rem;
       text-align: center;
+      padding: 0 1rem;
+      min-height: 60vh;
     }
   }
 }
@@ -280,7 +461,8 @@ main {
   background: $Basic-1;
   border-radius: 50px 50px 0 0; // Hero過渡的圓角
   margin-top: -50px; // 與Hero區重疊，創造圓角過渡效果
-  
+  z-index: 2; // 設定較低的 z-index
+
   .features-container {
     max-width: 1200px;
     margin: 0 auto;
@@ -541,6 +723,9 @@ main {
 .skills {
   padding: 100px 0;
   background: $Basic-2; // 淺灰背景
+  position: relative;
+  z-index: 2; // 設定較低的 z-index
+
   
   .skills-container {
     max-width: 1200px;
@@ -713,28 +898,31 @@ main {
   background: $Basic-1;
   border-radius: 0 0 50px 50px; // 下緣圓角，與下個section的交界處
   position: relative;
-  z-index: 1;
+  z-index: 2;
   
   .steps-container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 2rem;
     display: grid;
-    grid-template-columns: 1fr 2fr;
+    display: flex; // 改用 flex
     gap: 60px;
     align-items: flex-start;
     
     // 響應式設計
     @media (max-width: 968px) {
-      grid-template-columns: 1fr;
-      gap: 40px;
-      text-align: center;
-    }
+    flex-direction: column; // 手機版改為垂直排列
+    gap: 40px;
+    text-align: center;
+  }
   }
 }
 
 // 左側標題區
 .steps-header {
+  flex: 1; // 佔 1 份
+  min-width: 320px; // 設定最小寬度避免過窄
+
   @media (max-width: 968px) {
     order: 1;
   }
@@ -772,13 +960,14 @@ main {
 
 // 右側步驟卡片區
 .steps-cards {
+  flex: 2; // 佔 2 份，保持原有比例
   display: flex;
-  flex-direction: row; // 改為並排
+  flex-direction: row;
   gap: 30px;
   
   @media (max-width: 968px) {
     order: 2;
-    flex-direction: column; // 手機版才改為垂直
+    flex-direction: column;
   }
 }
 
@@ -786,14 +975,15 @@ main {
 .step-card {
   flex: 1;
   border-radius: 25px;
-  padding: 30px;
+  padding: 25px;
   position: relative;
   overflow: hidden;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  min-height: 400px;
+  min-height: 420px;
   color: $Basic-1;
+  min-width: 280px;
   
   // 使用背景圖片
   &:nth-child(1) {
@@ -813,17 +1003,17 @@ main {
   background-position: center;
   background-repeat: no-repeat;
   
-  // 添加深色遮罩讓文字更清楚
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.4);
-    z-index: 1;
-  }
+  // // 添加深色遮罩讓文字更清楚
+  // &::before {
+  //   content: '';
+  //   position: absolute;
+  //   top: 0;
+  //   left: 0;
+  //   right: 0;
+  //   bottom: 0;
+  //   background: rgba(0, 0, 0, 0.4);
+  //   z-index: 1;
+  // }
   
   // 確保內容在遮罩之上
   * {
@@ -834,6 +1024,7 @@ main {
   @media (max-width: 768px) {
     min-height: 300px;
     padding: 20px;
+    min-width: auto;
   }
 }
 
@@ -854,9 +1045,6 @@ main {
   margin-bottom: 20px;
 }
 
-// 移除步驟圖片（改用背景圖）
-// .step-image 已刪除，因為使用背景圖片
-
 // 步驟內容
 .step-content {
   margin-top: auto; // 推到底部
@@ -867,28 +1055,31 @@ main {
   .step-text {
     font-size: $f-s-sm;
     color: $Basic-1; // 白色文字
-    line-height: 1.5;
+    line-height: 1.4;
     margin: 0;
     font-family: $Family-TC;
+    max-width: 100%; // 確保文字不超出卡片
+    word-wrap: break-word; // 允許長單詞斷行
   }
   
   .step-button {
     background: $Primary-500;
     color: $Basic-1;
     border: none;
-    padding: 12px 24px;
+    padding: 10px 20px;
     border-radius: 25px;
-    font-size: $f-s-md;
-    // font-weight: $f-w-m;
+    font-size: $f-s-sm;
     font-family: $Family-TC;
     cursor: pointer;
     transition: all 0.3s ease;
     align-self: flex-start;
     white-space: nowrap;
+    max-width: 100%; // 確保按鈕不超出卡片
 
     
     @media (max-width: 768px) {
       align-self: center;
+      padding: 8px 16px;
     }
     
     &:hover {
@@ -926,13 +1117,14 @@ main {
   background-repeat: no-repeat;
   color: $Basic-1; // 白色文字
   position: relative;
+  z-index: 2;
   
   .about-us-container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 2rem;
     position: relative;
-    z-index: 2;
+    z-index: 3;
     align-items: center;
     
     // 響應式設計
@@ -1034,6 +1226,8 @@ main {
 .faq {
   padding: 100px 0;
   background: $Basic-1;
+  position: relative;
+  z-index: 2;
   
   .faq-container {
     max-width: 900px;
@@ -1228,13 +1422,14 @@ main {
   margin: 50px auto;
   max-width: 1200px;
   position: relative;
+  z-index: 2; 
   
   .cta-container {
     max-width: 900px;
     margin: 0 auto;
     padding: 0 2rem;
     
-    @media (max-width: 968px) {
+    @media ($mediaLg) {
       padding: 0 1rem;
     }
   }
@@ -1388,6 +1583,7 @@ main {
   color: $Basic-1;
   padding: 3rem 0 2rem;
   position: relative;
+  z-index: 2;
   
   .footer-container {
     max-width: 1200px;
@@ -1398,7 +1594,7 @@ main {
     gap: 3rem;
     
     // 響應式設計
-    @media (max-width: 968px) {
+    @media ($mediaLg) {
       grid-template-columns: 1fr;
       gap: 2rem;
       text-align: center;

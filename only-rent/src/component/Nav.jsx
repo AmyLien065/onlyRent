@@ -1,9 +1,9 @@
-import React, { useState, useEffect, forwardRef } from "react";
-// 確保 SCSS 正確引入
+import React, { useState, useEffect } from "react";
 import "../scss/style.scss";
 
 const Nav = ({ sectionRefs }) => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false); // 控制漢堡選單開合
 
   // 監聽滾動狀態
   useEffect(() => {
@@ -15,12 +15,31 @@ const Nav = ({ sectionRefs }) => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // 點擊外部關閉選單
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      // 如果點擊的不是漢堡按鈕或選單內容，就關閉選單
+      if (!event.target.closest('.hamburger-btn') && !event.target.closest('.navbar-menu')) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    if (isMenuOpen) {
+      document.addEventListener('click', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, [isMenuOpen]);
+
   // 滾動到頂部的函數
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
       behavior: "smooth"
     });
+    setIsMenuOpen(false); // 導航後關閉選單
   };
 
   // 滾動到指定區塊的函數
@@ -31,6 +50,7 @@ const Nav = ({ sectionRefs }) => {
         behavior: "smooth"
       });
     }
+    setIsMenuOpen(false); // 導航後關閉選單
   };
 
   // 導航選單項目
@@ -51,45 +71,80 @@ const Nav = ({ sectionRefs }) => {
     scrollToTop();
   };
 
-  return (
-    <nav className={`navbar ${isScrolled ? "scrolled" : ""}`}>
-      {/* Logo - 添加 ScrollToTop 功能 */}
-      <div className="navbar-brand">
-        <a 
-          href="#" 
-          className="brand-link"
-          onClick={handleLogoClick}
-          title="回到頂部"
-        >
-          Only Rent
-        </a>
-      </div>
+  // 切換漢堡選單開合
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
 
-      {/* 中央選單 */}
-      <ul className="navbar-menu">
-        {menuItems.map((item, index) => (
-          <li key={index} className="menu-item">
+  return (
+    <>
+      <nav className={`navbar ${isScrolled ? "scrolled" : ""}`}>
+        {/* Logo - ScrollToTop 功能 */}
+        <div className="navbar-brand">
+          <a 
+            href="#" 
+            className="brand-link"
+            onClick={handleLogoClick}
+            title="回到頂部"
+          >
+            Only Rent
+          </a>
+        </div>
+
+        {/* 中央選單 */}
+        <ul className={`navbar-menu ${isMenuOpen ? "menu-open" : ""}`}>
+          {menuItems.map((item, index) => (
+            <li key={index} className="menu-item">
+              <a 
+                href="#" 
+                className="menu-link"
+                onClick={(e) => handleMenuClick(e, item.onClick)}
+              >
+                {item.name}
+              </a>
+            </li>
+          ))}
+          
+          {/* 手機版選單內的 CTA 按鈕 */}
+          <li className="mobile-menu-cta">
             <a 
-              href="#" 
-              className="menu-link"
-              onClick={(e) => handleMenuClick(e, item.onClick)}
+              href="#download" 
+              className="cta-button"
+              onClick={() => setIsMenuOpen(false)}
             >
-              {item.name}
+              APP Download
             </a>
           </li>
-        ))}
-      </ul>
+        </ul>
 
-      {/* 右側 CTA 按鈕 */}
-      <div className="navbar-cta">
-        <a 
-          href="#download" 
-          className="cta-button"
+        {/* 右側 CTA 按鈕（桌面和平板版） */}
+        <div className="navbar-cta">
+          <a 
+            href="#download" 
+            className="cta-button"
+          >
+            APP Download
+          </a>
+        </div>
+
+        {/* 漢堡選單按鈕（手機版專用） */}
+        <button 
+          className={`hamburger-btn ${isMenuOpen ? "menu-open" : ""}`}
+          onClick={toggleMenu}
+          aria-label="選單"
         >
-          APP Download
-        </a>
-      </div>
-    </nav>
+          <div className="hamburger-line"></div>
+          <div className="hamburger-line"></div>
+          <div className="hamburger-line"></div>
+        </button>
+      </nav>
+
+      {/* 背景遮罩 */}
+      <div 
+        className={`menu-overlay ${isMenuOpen ? "overlay-open" : ""}`}
+        onClick={() => setIsMenuOpen(false)}
+      ></div>
+    </>
   );
 };
 
