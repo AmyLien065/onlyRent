@@ -1042,13 +1042,28 @@ main {
     overflow-x: auto; // 允許橫向滾動
   scroll-snap-type: x mandatory; // 滾動時自動對齊
   padding: 10px 0; // 給滾動條留空間
-
   }
+  // 手機版特殊設計 - 一次只顯示一張卡片
+  @media ($mediaSm) {
+    overflow-x: scroll;
+    scroll-snap-type: x mandatory;
+    gap: 0; // 移除間距
+    padding: 0;
+    
+    // 隱藏滾動條但保持功能
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    scrollbar-width: none; // Firefox
+  }
+
 }
 
 // 步驟卡片
 .step-card {
-  flex: 1;
+  flex: 0 0 280px; // 固定寬度，避免收縮
+
+scroll-snap-align: start; // 滾動對齊
   border-radius: 25px;
   padding: 25px;
   position: relative;
@@ -1085,9 +1100,19 @@ main {
   }
   
   @media (max-width: 768px) {
-    min-height: 300px;
+    min-height: 350px;
     padding: 20px;
-    min-width: auto;
+    flex: 0 0 250px; // 手機版稍微縮小
+  }
+
+  // 手機版特殊設計 - 滿版顯示
+  @media ($mediaSm) {
+    flex: 0 0 calc(100vw - 2rem); // 幾乎滿版寬度（減去左右邊距）
+    max-width: calc(100vw - 2rem);
+    min-height: 500px; // 增加高度以符合設計稿
+    margin: 0 1rem; // 左右留一點邊距
+    scroll-snap-align: center; // 置中對齊
+    border-radius: 20px;
   }
 }
 
