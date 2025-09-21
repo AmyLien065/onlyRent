@@ -105,15 +105,30 @@ const Nav = ({ sectionRefs }) => {
             </li>
           ))}
           
-          {/* 手機版選單內的 CTA 按鈕 */}
+          {/* 手機版選單內的下載按鈕 */}
           <li className="mobile-menu-cta">
-            <a 
-              href="#download" 
-              className="cta-button"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              APP Download
-            </a>
+            <div className="download-buttons">
+              <a 
+                href="#download" 
+                className="download-btn"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                <img 
+                  src="./images/OR_hero_AppStore.png" 
+                  alt="Download on the App Store" 
+                />
+              </a>
+              <a 
+                href="#download" 
+                className="download-btn"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                <img 
+                  src="./images/OR_hero_GooglePlay.png" 
+                  alt="Get it on Google Play" 
+                />
+              </a>
+            </div>
           </li>
         </ul>
 
