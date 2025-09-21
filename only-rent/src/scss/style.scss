@@ -975,17 +975,16 @@ main {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 2rem;
-    display: grid;
     display: flex;
     gap: 60px;
     align-items: flex-start;
     
-    // 響應式設計
-    @media (max-width: 968px) {
-    flex-direction: column; // 手機版改為垂直排列
-    gap: 40px;
-    text-align: center;
-  }
+    // 手機版調整
+    @media ($mediaSm) {
+      flex-direction: column;
+      gap: 40px;
+      text-align: center;
+    }
   }
 }
 
@@ -994,7 +993,7 @@ main {
   flex: 1; // 佔 1 份
   min-width: 320px; // 設定最小寬度避免過窄
 
-  @media (max-width: 968px) {
+   @media ($mediaSm) {
     order: 1;
   }
   
@@ -1004,6 +1003,11 @@ main {
     font-weight: $f-w-m;
     margin-bottom: $space-md;
     font-family: $Family-TC;
+
+    // 響應式字體調整
+    @media ($mediaLg) {
+      font-size: $f-s-md;
+    }
   }
   
   .steps-title {
@@ -1021,7 +1025,10 @@ main {
     line-height: 1.6;
     font-family: $Family-TC;
     
-    @media (max-width: 968px) {
+    // 平板版和手機版隱藏換行
+    // 響應式字體調整
+    @media ($mediaLg) {
+      font-size: $f-s-sm;
       br {
         display: none;
       }
@@ -1031,49 +1038,82 @@ main {
 
 // 右側步驟卡片區
 .steps-cards {
-  flex: 2; // 佔 2 份，保持原有比例
+  flex: 2;
   display: flex;
   flex-direction: row;
-  gap: 30px;
+  gap: 30px;  // 大桌機版 (>1200px) - 3張卡片完整顯示，不滾動
   
-  @media (max-width: 968px) {
-    order: 2;
-    flex-direction: row;
-    overflow-x: auto; // 允許橫向滾動
-  scroll-snap-type: x mandatory; // 滾動時自動對齊
-  padding: 10px 0; // 給滾動條留空間
+  // 中桌機版 (971px-1200px) - 3張卡片，調整尺寸和間距
+  @media (min-width: 971px) and (max-width: 1200px) {
+    gap: 25px;
   }
-  // 手機版特殊設計 - 一次只顯示一張卡片
-  @media ($mediaSm) {
-    overflow-x: scroll;
+  
+  // 大桌機版（1200px-1440px）
+  @media (min-width: 1201px) and (max-width: 1440px) {
+    gap: 25px;
+  }
+  
+   // 中桌機版 (971px-1200px) - 3張卡片，調整尺寸和間距
+  @media (min-width: 971px) and (max-width: 1200px) {
+    gap: 25px;
+  }
+  
+  // 平板版使用變數 ($mediaMd) 加擴展 - 2-3張卡片可滾動
+  @media ($mediaMd) {
+    gap: 20px;
+    overflow-x: auto;
     scroll-snap-type: x mandatory;
-    gap: 0; // 移除間距
-    padding: 0;
+    padding: 10px 0;
     
-    // 隱藏滾動條但保持功能
+    // 顯示滾動條讓用戶知道可以滾動
+    &::-webkit-scrollbar {
+      height: 6px;
+    }
+    &::-webkit-scrollbar-track {
+      background: $Basic-3;
+      border-radius: 3px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: $Basic-6;
+      border-radius: 3px;
+      
+      &:hover {
+        background: $Basic-7;
+      }
+    }
+  }
+  
+  // 手機版 ($mediaSm) - 單張顯示 + 滾動
+  @media ($mediaSm) {
+    order: 2;
+    gap: 15px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding: 0;
+    margin: 0 -2rem;
+    padding-left: 2rem;
+    
+    // 隱藏滾動條
     &::-webkit-scrollbar {
       display: none;
     }
-    scrollbar-width: none; // Firefox
+    scrollbar-width: none;
   }
-
 }
+
 
 // 步驟卡片
 .step-card {
-  flex: 0 0 280px; // 固定寬度，避免收縮
-
-scroll-snap-align: start; // 滾動對齊
+  flex-shrink: 0;
   border-radius: 25px;
-  padding: 25px;
   position: relative;
   overflow: hidden;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  min-height: 420px;
   color: $Basic-1;
-  min-width: 280px;
+
+  
   
   // 使用背景圖片
   &:nth-child(1) {
@@ -1093,26 +1133,45 @@ scroll-snap-align: start; // 滾動對齊
   background-position: center;
   background-repeat: no-repeat;
   
-  // 確保內容在遮罩之上
+  // 確保內容在最上層
   * {
     position: relative;
     z-index: 2;
   }
   
-  @media (max-width: 768px) {
-    min-height: 350px;
-    padding: 20px;
-    flex: 0 0 250px; // 手機版稍微縮小
+   // 大桌機版 (>1200px)
+  flex: 1;
+  min-height: 420px;
+  padding: 25px;
+  scroll-snap-align: start;
+  
+  // 中桌機版 (971px-1200px)
+  @media (min-width: 971px) and (max-width: 1200px) {
+    min-height: 420px;
+    padding: 22px;
   }
-
-  // 手機版特殊設計 - 滿版顯示
+  
+  // 平板版 ($mediaMd)
+  @media ($mediaMd) {
+    flex: 0 0 280px;
+    min-height: 380px;
+    padding: 20px;
+    scroll-snap-align: start;
+  }
+  
+  // 手機版 ($mediaSm)
   @media ($mediaSm) {
-    flex: 0 0 calc(100vw - 2rem); // 幾乎滿版寬度（減去左右邊距）
-    max-width: calc(100vw - 2rem);
-    min-height: 500px; // 增加高度以符合設計稿
-    margin: 0 1rem; // 左右留一點邊距
-    scroll-snap-align: center; // 置中對齊
+    flex: 0 0 calc(100vw - 4rem);
+    max-width: calc(100vw - 4rem);
+    min-height: 500px;
+    padding: 18px;
+    margin-right: 2rem;
+    scroll-snap-align: center;
     border-radius: 20px;
+    
+    &:last-child {
+      margin-right: 2rem;
+    }
   }
 }
 
@@ -1126,11 +1185,29 @@ scroll-snap-align: start; // 滾動對齊
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: $f-s-lg;
   font-weight: $f-w-b;
   font-family: $Family-TC;
   align-self: flex-start;
   margin-bottom: 20px;
+
+  // 響應式字體調整
+  font-size: $f-s-lg;
+  
+  @media (min-width: 971px) and (max-width: 1200px) {
+    font-size: $f-s-md;
+    width: 36px;
+    height: 36px;
+  }
+  
+  @media ($mediaMd) {
+    font-size: $f-s-md;
+    width: 34px;
+    height: 34px;
+  }
+  
+  @media ($mediaSm) {
+    font-size: $f-s-lg;
+  }
 }
 
 // 步驟內容
@@ -1141,22 +1218,34 @@ scroll-snap-align: start; // 滾動對齊
   gap: 15px;
   
   .step-text {
-    font-size: $f-s-sm;
     color: $Basic-1;
     line-height: 1.4;
     margin: 0;
     font-family: $Family-TC;
     max-width: 100%; // 確保文字不超出卡片
     word-wrap: break-word; // 允許長單詞斷行
+
+     // 響應式字體調整
+    font-size: $f-s-sm;
+    
+    @media (min-width: 971px) and (max-width: 1200px) {
+      font-size: $f-s-xs;
+    }
+    
+    @media ($mediaMd) {
+      font-size: $f-s-xs;
+    }
+    
+    @media ($mediaSm) {
+      font-size: $f-s-sm;
+    }
   }
   
   .step-button {
     background: $Primary-500;
     color: $Basic-1;
     border: none;
-    padding: 10px 20px;
     border-radius: 25px;
-    font-size: $f-s-sm;
     font-family: $Family-TC;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -1164,10 +1253,24 @@ scroll-snap-align: start; // 滾動對齊
     white-space: nowrap;
     max-width: 100%; // 確保按鈕不超出卡片
 
+    // 響應式尺寸調整
+    font-size: $f-s-sm;
+    padding: 10px 20px;
     
-    @media (max-width: 768px) {
-      align-self: center;
+    @media (min-width: 971px) and (max-width: 1200px) {
+      font-size: $f-s-xs;
       padding: 8px 16px;
+    }
+    
+    @media ($mediaMd) {
+      font-size: $f-s-xs;
+      padding: 8px 16px;
+    }
+    
+    @media ($mediaSm) {
+      font-size: $f-s-sm;
+      padding: 10px 20px;
+      align-self: center;
     }
     
     &:hover {

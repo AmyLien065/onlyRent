@@ -7,21 +7,18 @@ const Steps = forwardRef((props, ref) => {
       number: "1",
       title: "發佈或瀏覽",
       description: "案主可以發佈需求，達人可以上架技能，雙方都能快速找到彼此。",
-      image: "/images/OR_stepCard1.png",
       buttonText: "發佈或瀏覽"
     },
     {
       number: "2", 
       title: "即時溝通",
       description: "在 App 聊天室，討論需求、價格與交付，不必交換個資，安全又方便。",
-      image: "/images/OR_stepCard2.png",
       buttonText: "即時溝通"
     },
     {
       number: "3",
       title: "完成後，安全撥款",
       description: "與綠界合作安全收款，任務完成驗收後才撥款，讓合作更有保障。",
-      image: "/images/OR_stepCard3.png",
       buttonText: "完成後，安全撥款"
     }
   ];
