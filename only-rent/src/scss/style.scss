@@ -385,29 +385,90 @@ main {
       font-size: $f-s-xl;
     }
   }
-  
-  .hero-title {
-    font-size: $f-s-ex;
-    font-weight: $f-w-b;
-    line-height: 1.5;
-    margin-bottom: $space-xl;
-    color: $Basic-1;
-    font-family: $Family-TC;
-    
-     @media (max-width: 968px) {
-      font-size: $f-s-xxxl;
-      font-weight: $f-w-b;
-    }
 
-    .highlight {
-      background: linear-gradient(135deg, $Primary-300 0%, $Primary-500 50%, $Primary-400 100%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      color: transparent;
-      position: relative;
+
+  // Hero 標題輪播效果樣式 - 基礎版
+.hero-title {
+  font-size: $f-s-ex;
+  font-weight: $f-w-b;
+  line-height: 1.5;
+  margin-bottom: $space-xl;
+  color: $Basic-1;
+  font-family: $Family-TC;
+  
+  @media (max-width: 968px) {
+    font-size: $f-s-xxxl;
+    font-weight: $f-w-b;
+  }
+
+  // .highlight {
+  //     background: linear-gradient(135deg, $Primary-300 0%, $Primary-500 50%, $Primary-400 100%);
+  //     -webkit-background-clip: text;
+  //     background-clip: text;
+  //     -webkit-text-fill-color: transparent;
+  //     color: transparent;
+  //     position: relative;
+  //   }
+
+  // 輪播容器
+  .keyword-carousel {
+    position: relative;
+    display: inline-block;
+    min-width: 350px; // 增加寬度容納中文
+    height: 1.2em; // 固定高度防止文字跳動
+    text-align: left;
+    vertical-align: top; // 確保對齊
+
+    
+    // 手機版調整
+    @media (max-width: 968px) {
+      min-width: 250px;
+    }
+    
+    @media (max-width: 480px) {
+      min-width: 200px;
     }
   }
+
+  // 輪播項目
+  .carousel-item {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: linear-gradient(135deg, $Primary-300 0%, $Primary-500 50%, $Primary-400 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s ease;
+    
+    // 激活狀態
+    &.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+// 響應式調整
+@media (max-width: 768px) {
+  .hero-title {
+    .keyword-carousel {
+      min-width: 160px;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-title {
+    .keyword-carousel {
+      min-width: 160px;
+    }
+  }
+}
   
   .hero-description {
     font-size: .9rem;

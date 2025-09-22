@@ -23,10 +23,10 @@ const Footer = () => {
           {/* App 下載按鈕 */}
           <div className="app-download">
             <a href="#" className="download-btn app-store">
-              <img src="./images/app-store.svg" alt="Download on the App Store" />
+              <img src="./images/footer_Apple_Store.png.png" alt="Download on the App Store" />
             </a>
             <a href="#" className="download-btn google-play">
-              <img src="./images/google-play.svg" alt="Get it on Google Play" />
+              <img src="./images/footer_Google_Play.png" alt="Get it on Google Play" />
             </a>
           </div>
 

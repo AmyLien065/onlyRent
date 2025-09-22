@@ -1,6 +1,21 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 const Hero = () => {
+  // 輪播關鍵字數組
+  const keywords = ["發案平台", "接案平台"];
+  
+  // 當前顯示的關鍵字索引
+  const [currentIndex, setCurrentIndex] = useState(0);
+  
+  // 設置輪播定時器
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % keywords.length);
+    }, 2500); // 每2.5秒切換一次
+
+    return () => clearInterval(interval); // 清理定時器
+  }, [keywords.length]);
+
   return (
     <section className="hero" id="hero">
       <div className="hero-container">
@@ -11,9 +26,19 @@ const Hero = () => {
             隨時隨地開始
           </div>
 
-          {/* 主標題 */}
+          {/* 主標題 - 加入輪播效果 */}
           <h1 className="hero-title">
-            你的<span className="highlight">發案平台</span>
+            你的
+            <span className="keyword-carousel">
+              {keywords.map((keyword, index) => (
+                <span 
+                  key={index}
+                  className={`carousel-item ${index === currentIndex ? 'active' : ''}`}
+                >
+                  {keyword}
+                </span>
+              ))}
+            </span>
           </h1>
 
           {/* 描述文字 */}
