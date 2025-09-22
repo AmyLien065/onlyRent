@@ -1112,26 +1112,33 @@ main {
   flex-direction: column;
   justify-content: space-between;
   color: $Basic-1;
-
+  // 共同的背景設定
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   
   
   // 使用背景圖片
   &:nth-child(1) {
     background-image: url('/images/OR_stepCard1.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
   }
   
   &:nth-child(2) {
     background-image: url('/images/OR_stepCard2.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
   }
   
   &:nth-child(3) {
     background-image: url('/images/OR_stepCard3.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
   }
-  
-  // 共同的背景設定
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
   
   // 確保內容在最上層
   * {
@@ -1139,7 +1146,7 @@ main {
     z-index: 2;
   }
   
-   // 大桌機版 (>1200px)
+  // 大桌機版 (>1200px)
   flex: 1;
   min-height: 420px;
   padding: 25px;
@@ -1168,6 +1175,7 @@ main {
     margin-right: 2rem;
     scroll-snap-align: center;
     border-radius: 20px;
+    
     
     &:last-child {
       margin-right: 2rem;
@@ -1254,12 +1262,21 @@ main {
     max-width: 100%; // 確保按鈕不超出卡片
 
     // 響應式尺寸調整
+    // 默認樣式 (>1200px)
     font-size: $f-s-sm;
     padding: 10px 20px;
+    white-space: nowrap;
     
-    @media (min-width: 971px) and (max-width: 1200px) {
+    // 【關鍵修復】971以上 斷點 - 防止文字超出
+    @media (min-width: 971px){
       font-size: $f-s-xs;
-      padding: 8px 16px;
+      padding: 6px 12px;
+      white-space: normal; // 允許換行
+      line-height: 1.2;
+      text-align: center;
+      min-height: 36px; // 確保按鈕有足夠高度
+      max-width: 95%; // 限制寬度防止超出
+      word-break: break-all; // 強制斷行
     }
     
     @media ($mediaMd) {
