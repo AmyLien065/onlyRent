@@ -1866,42 +1866,240 @@ main {
 
 
 // Google Forms 容器樣式
-.google-form-wrapper {
-  max-width: 1000px;
-  margin: 2rem auto 0;
-  background: rgba($Basic-1, 0.1);
-  border-radius: 16px;
-  // padding: 20px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
+// .google-form-wrapper {
+//   max-width: 1000px;
+//   margin: 2rem auto 0;
+//   background: rgba($Basic-1, 0.1);
+//   border-radius: 16px;
+//   // padding: 20px;
+//   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+//   overflow: hidden;
   
-  iframe {
-    border-radius: 12px;
-    background: $Basic-1;
-    display: block;
+//   iframe {
+//     border-radius: 12px;
+//     background: $Basic-1;
+//     display: block;
     
-    // 手機版調整
-    @media (max-width: 640px) {
-      height: 500px !important; // 手機版增加高度
-    }
-  }
+//     // 手機版調整
+//     @media (max-width: 640px) {
+//       height: 500px !important; // 手機版增加高度
+//     }
+//   }
+  
+//   @media (max-width: 768px) {
+//     padding: 15px;
+//     margin: 1.5rem 1rem 0;
+//   }
+// }
+
+// // 備用連結樣式
+// .backup-link {
+//   text-align: center;
+  
+//   a {
+//     transition: color 0.3s ease;
+    
+//     &:hover {
+//       color: $Primary-300 !important;
+//     }
+//   }
+// }
+
+
+// 進階表單樣式 - 新增到 style.scss
+
+// 進階表單容器
+.advanced-form-wrapper {
+  max-width: 600px;
+  margin: 2rem auto 0;
+  background: rgba($Basic-1, 0.95);
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(10px);
   
   @media (max-width: 768px) {
-    padding: 15px;
     margin: 1.5rem 1rem 0;
+    padding: 1.5rem;
   }
 }
 
-// 備用連結樣式
-.backup-link {
-  text-align: center;
+// 表單主體
+.advanced-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+// 表單欄位
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+// 欄位標籤
+.field-label {
+  color: $Basic-9;
+  font-size: $f-s-md;
+  font-weight: $f-w-m;
+  font-family: $Family-TC;
+}
+
+// 文字輸入框
+.field-input {
+  padding: 1rem 1.25rem;
+  border: 2px solid $Basic-4;
+  border-radius: 12px;
+  font-size: $f-s-md;
+  font-family: $Family-TC;
+  background: $Basic-1;
+  color: $Basic-9;
+  transition: all 0.3s ease;
   
-  a {
-    transition: color 0.3s ease;
-    
-    &:hover {
-      color: $Primary-300 !important;
-    }
+  &::placeholder {
+    color: $Basic-6;
+  }
+  
+  &:focus {
+    outline: none;
+    border-color: $Primary-500;
+    box-shadow: 0 0 0 3px rgba($Primary-500, 0.1);
+  }
+  
+  &:disabled {
+    background: $Basic-3;
+    cursor: not-allowed;
+  }
+}
+
+// 下拉選單
+.field-select {
+  @extend .field-input;
+  cursor: pointer;
+  
+  &:disabled {
+    cursor: not-allowed;
+  }
+}
+
+// 單選按鈕群組
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 0.5rem 0;
+}
+
+.radio-option {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+  padding: 0.75rem;
+  border-radius: 10px;
+  transition: background 0.3s ease;
+  
+  &:hover {
+    background: rgba($Primary-500, 0.05);
+  }
+  
+  input[type="radio"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    accent-color: $Primary-500;
+  }
+  
+  .radio-text {
+    color: $Basic-8;
+    font-size: $f-s-md;
+    font-family: $Family-TC;
+    cursor: pointer;
+  }
+}
+
+// 進階提交按鈕
+.advanced-submit-btn {
+  background: linear-gradient(135deg, $Primary-500 0%, $Primary-400 100%);
+  color: $Basic-1;
+  border: none;
+  padding: 1.25rem 2rem;
+  border-radius: 15px;
+  font-size: $f-s-lg;
+  font-weight: $f-w-m;
+  font-family: $Family-TC;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 0.5rem;
+  
+  &:hover:not(:disabled) {
+    background: linear-gradient(135deg, $Primary-400 0%, $Primary-300 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba($Primary-500, 0.4);
+  }
+  
+  &:active:not(:disabled) {
+    transform: translateY(0);
+  }
+  
+  &:disabled {
+    background: $Basic-6;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+}
+
+// 提交結果訊息（優化版）
+.submit-message {
+  margin-top: 1.5rem;
+  padding: 1.25rem 2rem;
+  border-radius: 15px;
+  font-size: $f-s-md;
+  font-family: $Family-TC;
+  text-align: center;
+  font-weight: $f-w-m;
+  animation: slideInUp 0.5s ease-out;
+  
+  &.success {
+    background: linear-gradient(135deg, #d1f2eb 0%, #a3e4d7 100%);
+    color: #0e6245;
+    border: 2px solid #7dcea0;
+  }
+  
+  &.error {
+    background: linear-gradient(135deg, #fadbd8 0%, #f1948a 100%);
+    color: #922b21;
+    border: 2px solid #ec7063;
+  }
+}
+
+// 滑入動畫
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// 響應式調整
+@media (max-width: 640px) {
+  .radio-group {
+    gap: 0.5rem;
+  }
+  
+  .radio-option {
+    padding: 0.5rem;
+  }
+  
+  .advanced-submit-btn {
+    padding: 1rem 1.5rem;
+    font-size: $f-s-md;
   }
 }
 
