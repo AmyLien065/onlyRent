@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
 
 const Hero = () => {
-  // 輪播關鍵字數組
-  const keywords = ["發案平台", "接案平台"];
+  // 輪播關鍵字數組 - 新增漸層類型
+  const keywords = [
+    { text: "發案平台", gradient: "gradient-1" },
+    { text: "接案平台", gradient: "gradient-2" }
+  ];
   
   // 當前顯示的關鍵字索引
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -26,16 +29,16 @@ const Hero = () => {
             隨時隨地開始
           </div>
 
-          {/* 主標題 - 加入輪播效果 */}
+          {/* 主標題 - 修改輪播效果 */}
           <h1 className="hero-title">
             你的
             <span className="keyword-carousel">
               {keywords.map((keyword, index) => (
                 <span 
                   key={index}
-                  className={`carousel-item ${index === currentIndex ? 'active' : ''}`}
+                  className={`carousel-item ${keyword.gradient} ${index === currentIndex ? 'active' : ''}`}
                 >
-                  {keyword}
+                  {keyword.text}
                 </span>
               ))}
             </span>

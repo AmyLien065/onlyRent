@@ -40,22 +40,24 @@ const Steps = forwardRef((props, ref) => {
           </p>
         </div>
 
-        {/* 右側步驟卡片區 */}
-        <div className="steps-cards">
-          {steps.map((step, index) => (
-            <div key={index} className="step-card">
-              {/* 步驟編號 */}
-              <div className="step-number">{step.number}</div>
-              
-              {/* 步驟內容 */}
-              <div className="step-content">
-                <p className="step-text">{step.description}</p>
-                <button className="step-button">
-                  {step.buttonText}
-                </button>
+        {/* 右側步驟卡片區 - 新增滑動容器 */}
+        <div className="steps-cards-wrapper">
+          <div className="steps-cards">
+            {steps.map((step, index) => (
+              <div key={index} className="step-card">
+                {/* 步驟編號 */}
+                <div className="step-number">{step.number}</div>
+                
+                {/* 步驟內容 */}
+                <div className="step-content">
+                  <p className="step-text">{step.description}</p>
+                  <button className="step-button">
+                    {step.buttonText}
+                  </button>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </section>

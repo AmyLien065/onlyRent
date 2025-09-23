@@ -436,7 +436,6 @@ main {
     top: 0;
     left: 0;
     width: 100%;
-    background: linear-gradient(135deg, $Primary-300 0%, $Primary-500 50%, $Primary-400 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -444,6 +443,17 @@ main {
     opacity: 0;
     transform: translateY(20px);
     transition: all 0.6s ease;
+
+
+    // 第一組漸層（發案平台）
+  &.gradient-1 {
+    background: linear-gradient(135deg, $Primary-300 0%, $Primary-500 50%, $Primary-400 100%);
+  }
+  
+  // 第二組漸層（接案平台）
+  &.gradient-2 {
+    background: linear-gradient(135deg, #FF6B6B 0%, #4ECDC4 50%, #45B7D1 100%);
+  }
     
     // 激活狀態
     &.active {
@@ -1097,9 +1107,19 @@ main {
   }
 }
 
-// 右側步驟卡片區
-.steps-cards {
+// 右側步驟卡片包裝器 - 新增
+.steps-cards-wrapper {
   flex: 2;
+  overflow: hidden; // 隱藏超出部分
+  
+  @media ($mediaSm) {
+    order: 2;
+    margin: 0 -2rem; // 負邊距讓滑動容器可以延伸到螢幕邊緣
+  }
+}
+
+// 右側步驟卡片區 - 修改
+.steps-cards {
   display: flex;
   flex-direction: row;
   gap: 30px;  // 大桌機版 (>1200px) - 3張卡片完整顯示，不滾動
@@ -1144,15 +1164,12 @@ main {
     }
   }
   
-  // 手機版 ($mediaSm) - 單張顯示 + 滾動
+  // 手機版 ($mediaSm) - 修改為完整顯示一張+第二張露出一節
   @media ($mediaSm) {
-    order: 2;
     gap: 15px;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
-    padding: 0;
-    margin: 0 -2rem;
-    padding-left: 2rem;
+    padding: 0 2rem; // 左邊padding讓第一張卡片有邊距
     
     // 隱藏滾動條
     &::-webkit-scrollbar {
@@ -1227,17 +1244,22 @@ main {
     scroll-snap-align: start;
   }
   
-  // 手機版 ($mediaSm)
+   // 手機版 ($mediaSm) - 修改寬度實現一張完整+第二張露出
   @media ($mediaSm) {
-    flex: 0 0 calc(100vw - 4rem);
-    max-width: calc(100vw - 4rem);
+    flex: 0 0 calc(100vw - 6rem); // 修改寬度，讓第二張卡片可以露出
+    max-width: calc(100vw - 6rem);
     min-height: 500px;
     padding: 18px;
-    margin-right: 2rem;
-    scroll-snap-align: center;
+    margin-right: 1rem; // 減少右邊距
+    scroll-snap-align: start; // 改為 start 對齊
     border-radius: 20px;
     
+    // 第一張卡片左對齊
+    &:first-child {
+      margin-left: 0;
+    }
     
+    // 最後一張卡片給足夠的右邊距
     &:last-child {
       margin-right: 2rem;
     }
