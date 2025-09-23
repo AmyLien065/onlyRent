@@ -445,14 +445,30 @@ main {
     transition: all 0.6s ease;
 
 
-    // 第一組漸層（發案平台）
+   // 第一組漸層（發案平台）
   &.gradient-1 {
     background: linear-gradient(135deg, $Primary-300 0%, $Primary-500 50%, $Primary-400 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    
+    // 兼容性備案
+    @supports not (-webkit-background-clip: text) {
+      color: $Primary-500;
+    }
   }
   
   // 第二組漸層（接案平台）
   &.gradient-2 {
-    background: linear-gradient(135deg, #FF6B6B 0%, #4ECDC4 50%, #45B7D1 100%);
+    background: linear-gradient(135deg, $Primary-500 0%, $Primary-300 50%, $Primary-700 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    
+    // 兼容性備案
+    @supports not (-webkit-background-clip: text) {
+      color: #FF6B6B;
+    }
   }
     
     // 激活狀態
@@ -1111,10 +1127,12 @@ main {
 .steps-cards-wrapper {
   flex: 2;
   overflow: hidden; // 隱藏超出部分
+  width: 100%;
+  // margin: 0 auto;
   
   @media ($mediaSm) {
     order: 2;
-    margin: 0 -2rem; // 負邊距讓滑動容器可以延伸到螢幕邊緣
+    margin: 0 auto; // 負邊距讓滑動容器可以延伸到螢幕邊緣
   }
 }
 
@@ -1169,14 +1187,35 @@ main {
     gap: 15px;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
-    padding: 0 2rem; // 左邊padding讓第一張卡片有邊距
+    // padding: 0 10px 10px 0; // 增加底部 padding 給滾動條留空間
     
-    // 隱藏滾動條
+    // 極細滾動條
     &::-webkit-scrollbar {
-      display: none;
+      height: 4px;                // 稍微增加高度確保可見
+      display: block;
     }
-    scrollbar-width: none;
-  }
+    
+    &::-webkit-scrollbar-track {
+      background: rgba($Basic-4, 0.5); // 稍微有顏色的軌道
+      border-radius: 2px;
+    }
+    
+   &::-webkit-scrollbar-thumb {
+      background: $Basic-7;        // 深灰色把手
+      border-radius: 2px;
+      
+      &:hover {
+        background: $Basic-8;      // 懸停時更深
+      }
+      
+      &:active {
+        background: $Basic-9;      // 點擊時最深
+      }
+    }
+    
+    scrollbar-width: thin;         // Firefox 顯示細滾動條
+    scrollbar-color: $Basic-7 transparent; // Firefox 滾動條顏色
+}
 }
 
 
@@ -1249,8 +1288,8 @@ main {
     flex: 0 0 calc(100vw - 6rem); // 修改寬度，讓第二張卡片可以露出
     max-width: calc(100vw - 6rem);
     min-height: 500px;
-    padding: 18px;
-    margin-right: 1rem; // 減少右邊距
+    // padding: 15px;
+    // margin-right: 1rem; // 減少右邊距
     scroll-snap-align: start; // 改為 start 對齊
     border-radius: 20px;
     
@@ -1261,7 +1300,7 @@ main {
     
     // 最後一張卡片給足夠的右邊距
     &:last-child {
-      margin-right: 2rem;
+      margin-right: 0;
     }
   }
 }
@@ -1350,7 +1389,7 @@ main {
     padding: 10px 20px;
     white-space: nowrap;
     
-    // 【關鍵修復】971以上 斷點 - 防止文字超出
+    // 971以上 斷點 - 防止文字超出
     @media (min-width: 971px){
       font-size: $f-s-xs;
       padding: 6px 12px;
@@ -1362,6 +1401,17 @@ main {
       word-break: break-all; // 強制斷行
     }
     
+    @media (min-width: 821px) and (max-width: 970px){
+      font-size: 0.5rem;
+      padding: 2px 8px;
+      white-space: normal; // 允許換行
+      line-height: 1;
+      text-align: center;
+      min-height: 36px; // 確保按鈕有足夠高度
+      max-width: 95%; // 限制寬度防止超出
+      word-break: break-all; // 強制斷行
+    }
+
     @media ($mediaMd) {
       font-size: $f-s-xs;
       padding: 8px 16px;
@@ -1518,7 +1568,11 @@ main {
       font-size: $f-s-sm;
       
       p {
-        margin-bottom: $space-sm;
+        margin-bottom: $space-md;
+
+        &:last-child {
+        margin-bottom: $space-md;
+      }
       }
     }
   }

@@ -18,12 +18,12 @@ const Features = forwardRef((props, ref) => {
         {
           title: "安全溝通",
           description: "App 內與客戶聊天，個資不會提前公開，工作與生活切分",
-          image: "./images/feature-safe-communication.svg"
+          image: "./images/feature-safe-communication.png"
         },
         {
           title: "個人品牌",
           description: "打造職人主頁，透過社群互動累積口碑，吸引更多案源",
-          image: "./images/feature-personal-brand.svg"
+          image: "./images/feature-personal-brand.png"
         },
         {
           title: "透明交易",
