@@ -1864,6 +1864,50 @@ main {
   }
 }
 
+
+// Google Forms 容器樣式
+.google-form-wrapper {
+  max-width: 1000px;
+  margin: 2rem auto 0;
+  background: rgba($Basic-1, 0.1);
+  border-radius: 16px;
+  // padding: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  
+  iframe {
+    border-radius: 12px;
+    background: $Basic-1;
+    display: block;
+    
+    // 手機版調整
+    @media (max-width: 640px) {
+      height: 500px !important; // 手機版增加高度
+    }
+  }
+  
+  @media (max-width: 768px) {
+    padding: 15px;
+    margin: 1.5rem 1rem 0;
+  }
+}
+
+// 備用連結樣式
+.backup-link {
+  text-align: center;
+  
+  a {
+    transition: color 0.3s ease;
+    
+    &:hover {
+      color: $Primary-300 !important;
+    }
+  }
+}
+
+// CTA區塊結尾
+
+
 // Footer 樣式
 .footer {
   background-color: $Basic-10;

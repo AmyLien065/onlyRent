@@ -1,50 +1,47 @@
-import React, { useState } from "react";
+import React from "react";
 
 const CTA = () => {
-  const [email, setEmail] = useState("");
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // 處理表單提交邏輯
-    console.log("提交郵箱:", email);
-    // 這裡可以添加 API 調用或其他處理邏輯
-  };
-
   return (
     <section className="cta" id="cta">
       <div className="cta-container">
         <div className="cta-content">
-          {/* 副標題 */}
-          <div className="cta-subtitle">
-            #加入等候名單
-          </div>
-          
-          {/* 主標題 */}
-          <h2 className="cta-title">
-            搶先體驗 Only Rent
-          </h2>
-          
-          {/* 描述文字 */}
+          {/* 標題區 */}
+          <div className="cta-subtitle">#加入等候名單</div>
+          <h2 className="cta-title">搶先體驗 Only Rent</h2>
           <p className="cta-description">
-            留下聯絡方式，我們將邀｀你成為 Beta 版用戶，享推薦獎勵
+            留下聯絡方式，我們將邀請你成為 Beta 版用戶，享推薦獎勵
           </p>
           
-          {/* 郵箱輸入表單 */}
-          <form className="cta-form" onSubmit={handleSubmit}>
-            <div className="form-group">
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="輸入信箱"
-                className="email-input"
-                required
-              />
-              <button type="submit" className="submit-btn">
-                送出
-              </button>
-            </div>
-          </form>
+          {/* Google Forms 嵌入區 - 使用你的表單 */}
+          <div className="google-form-wrapper">
+            <iframe 
+              src="https://docs.google.com/forms/d/e/1FAIpQLSfJO4wvP4_M50m0F46F9UMQqPB1QH-batIql-Bi8Pp4MR_UUQ/viewform?embedded=true" 
+              width="100%" 
+              height="400" 
+              frameBorder="0" 
+              marginHeight="0" 
+              marginWidth="0"
+              title="Only Rent Beta 等候名單"
+              loading="lazy"
+            >
+              載入中…
+            </iframe>
+          </div>
+
+          {/* 備用連結（如果 iframe 無法顯示） */}
+          <div className="backup-link">
+            <p style={{fontSize: '0.9rem', color: 'rgba(255,255,255,0.8)', marginTop: '1rem'}}>
+              如果表單無法顯示，請
+              <a 
+                href="https://docs.google.com/forms/d/e/1FAIpQLSfJO4wvP4_M50m0F46F9UMQqPB1QH-batIql-Bi8Pp4MR_UUQ/viewform" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                style={{color: '#75E1EB', textDecoration: 'underline', marginLeft: '4px'}}
+              >
+                點此填寫
+              </a>
+            </p>
+          </div>
         </div>
       </div>
     </section>
