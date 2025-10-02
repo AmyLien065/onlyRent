@@ -429,7 +429,6 @@ main {
 
   // Hero 標題輪播效果樣式 - 基礎版
 .hero-title {
-  border: 1px solid red;
   min-width: 600px;
   font-size: 4.5rem;
   font-weight: $f-w-b;
@@ -465,7 +464,6 @@ main {
 
   // 輪播項目
   .carousel-item {
-    border: 1px solid red;
     position: absolute;
     top: 0;
     left: 0;
