@@ -3,7 +3,7 @@ import "../scss/style.scss";
 
 const Nav = ({ sectionRefs }) => {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false); // 控制漢堡選單開合
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   // 監聽滾動狀態
   useEffect(() => {
@@ -15,10 +15,25 @@ const Nav = ({ sectionRefs }) => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // 控制背景滾動
+  useEffect(() => {
+    if (isMenuOpen) {
+      // 打開菜單時禁用背景滾動
+      document.body.style.overflow = 'hidden';
+    } else {
+      // 關閉菜單時恢復滾動
+      document.body.style.overflow = 'unset';
+    }
+
+    // 清理函数
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isMenuOpen]);
+
   // 點擊外部關閉選單
   useEffect(() => {
     const handleClickOutside = (event) => {
-      // 如果點擊的不是漢堡按鈕或選單內容，就關閉選單
       if (!event.target.closest('.hamburger-btn') && !event.target.closest('.navbar-menu')) {
         setIsMenuOpen(false);
       }
@@ -39,21 +54,21 @@ const Nav = ({ sectionRefs }) => {
       top: 0,
       behavior: "smooth"
     });
-    setIsMenuOpen(false); // 導航後關閉選單
+    setIsMenuOpen(false);
   };
 
-  // 滾動到指定區塊的函數
+  // 滾動到指定區域的函數
   const scrollToSection = (ref) => {
     if (ref && ref.current) {
       window.scrollTo({
-        top: ref.current.offsetTop - 80, // 減去 navbar 高度
+        top: ref.current.offsetTop - 80,
         behavior: "smooth"
       });
     }
-    setIsMenuOpen(false); // 導航後關閉選單
+    setIsMenuOpen(false);
   };
 
-  // 導航選單項目
+  // Navbar導航項目
   const menuItems = [
     { name: "探索 / 發案", onClick: () => scrollToSection(sectionRefs?.featuresRef) },
     { name: "簡單 3 步驟", onClick: () => scrollToSection(sectionRefs?.stepsRef) },
@@ -79,7 +94,7 @@ const Nav = ({ sectionRefs }) => {
   return (
     <>
       <nav className={`navbar ${isScrolled ? "scrolled" : ""}`}>
-        {/* Logo - ScrollToTop 功能 */}
+        {/* Logo */}
         <div className="navbar-brand">
           <a 
             href="#" 
@@ -87,11 +102,11 @@ const Nav = ({ sectionRefs }) => {
             onClick={handleLogoClick}
             title="回到頂部"
           >
-            Only Rent
+            <img src="./images/OR_logo.png" alt="Only Rent" className="brand-logo" />
           </a>
         </div>
 
-        {/* 中央選單 */}
+        {/* 中間選單 */}
         <ul className={`navbar-menu ${isMenuOpen ? "menu-open" : ""}`}>
           {menuItems.map((item, index) => (
             <li key={index} className="menu-item">
