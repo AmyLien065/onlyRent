@@ -166,10 +166,27 @@ main {
     transition: color 0.3s ease;
     padding: 0.5rem 0;
     display: block;
+    position: relative;
+    transition: color 0.3s ease;
 
-    &:hover {
-      color: $Primary-300;
+    &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: $Basic-1;
+    transform: scaleX(0); // 預設隱藏
+    transition: transform 0.3s ease;
+  }
+
+  &:hover {
+    
+    &::after {
+      transform: scaleX(1); // hover 時顯示底線
     }
+  }
 
     // 平板版調整
     @media (min-width: 641px) and (max-width: 970px) {
@@ -184,6 +201,11 @@ main {
       font-size: 1rem;
       border-radius: 8px;
       text-align: left; 
+
+      // 手機版移除底線效果
+      &::after {
+      display: none;
+    }
       
       &:hover {
       color: $Basic-9;
@@ -200,17 +222,20 @@ main {
 
 .navbar-cta {
   .cta-button {
-    background: $Basic-7;
-    color: white !important;
+    background: transparent;
+    color: $Basic-1;
+    border: 2px solid $Basic-1; 
     padding: 0.75rem 1.5rem;
-    border-radius: 25px;
+    border-radius: 99px;
     text-decoration: none;
     font-weight: 600;
     transition: all 0.3s ease;
     display: inline-block;
 
-    &:hover {
-      background: $Basic-8;
+     &:hover {
+      background: $Basic-9;
+      color: $Basic-1;
+      border-color: $Basic-1;
       transform: translateY(-1px);
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     }
@@ -413,13 +438,13 @@ main {
   
   .hero-subtitle {
     color: $Basic-1;
-    font-size: $f-s-xxl;
+    font-size: $f-s-xl;
     font-weight: $f-w-r;
     margin-bottom: $space-lg;
     font-family: $Family-TC;
 
      @media (max-width: 968px) {
-      font-size: $f-s-xl;
+      font-size: $f-s-lg;
     }
   }
 
@@ -435,7 +460,7 @@ main {
   font-family: $Family-TC;
   
   @media (max-width: 968px) {
-    font-size: $f-s-xxxl;
+    font-size: 2.5rem;
     font-weight: $f-w-b;
   }
 
@@ -451,7 +476,7 @@ main {
     
     // 手機版調整
     @media (max-width: 968px) {
-      min-width: 250px;
+      min-width: 280px;
     }
     
     @media (max-width: 480px) {
@@ -484,9 +509,17 @@ main {
     @supports not (-webkit-background-clip: text) {
       color: $Primary-500;
     }
+
+    // 手機版：上下漸層，灰藍色
+    @media (max-width: 968px) {
+      background: linear-gradient(180deg, $Primary-300 10%, $Primary-200 50%, $Basic-1 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
   }
   
-  // 第二組漸層（接案平台）
+  // 第二組漸層（接案舞台）
   &.gradient-2 {
     background: linear-gradient(135deg, $Primary-500 0%, $Primary-300 50%, $Primary-700 100%);
     -webkit-background-clip: text;
@@ -497,6 +530,15 @@ main {
     @supports not (-webkit-background-clip: text) {
       color: #FF6B6B;
     }
+
+    // 手機版：上下漸層，灰藍色
+    @media (max-width: 968px) {
+      background: linear-gradient(180deg, $Basic-1 10%, $Primary-200 50%, $Primary-300 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
   }
     
     // 激活狀態
@@ -525,18 +567,16 @@ main {
 }
   
   .hero-description {
-    font-size: .9rem;
-    line-height: 1.6;
+    font-size: 1.125rem;
+    line-height: 1.8;
     color: $Basic-1;
     margin-bottom: $space-xl;
-    max-width: 555px;
+    max-width: 660px;
     font-family: $Family-TC;
     
     @media (max-width: 968px) {
+      font-size: 0.95rem;
       margin: 0 auto $space-xxl;
-      br {
-        display: none;
-      }
     }
   }
   

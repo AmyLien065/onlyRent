@@ -8,17 +8,30 @@ const Hero = () => {
   
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [isMobile, setIsMobile] = useState(false); // 👈 新增：判斷是否為手機版
+  
+  // 新增：監聽視窗大小
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 640);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
   
   useEffect(() => {
     const interval = setInterval(() => {
-      setIsTransitioning(true); // 開始淡出
+      setIsTransitioning(true);
       
       setTimeout(() => {
         setCurrentIndex((prevIndex) => (prevIndex + 1) % keywords.length);
-        setIsTransitioning(false); // 淡入新文字
-      }, 400); // 淡出時間，可調整
+        setIsTransitioning(false);
+      }, 400);
       
-    }, 2500); // 每個文字顯示的時間
+    }, 2500);
 
     return () => clearInterval(interval);
   }, [keywords.length]);
@@ -45,9 +58,21 @@ const Hero = () => {
             </span>
           </h1>
 
+          {/* 根據裝置顯示不同文字 */}
           <p className="hero-description">
-            Only Rent 是一款任務配對平台，透過透明機制與金流保障，<br />
-            建立雙方的信任。讓發案更安心、接案更自由！
+            {isMobile ? (
+              // 手機版簡化文字
+              <>
+              Only Rent 是一款任務配對平台，<br />
+              讓發案更安心、接案更自由！
+              </>
+            ) : (
+              // 桌機版完整文字
+              <>
+                Only Rent 是一款任務配對平台，透過透明機制與金流保障，<br />
+                建立雙方的信任。讓發案更安心、接案更自由！
+              </>
+            )}
           </p>
 
           <div className="hero-cta">
