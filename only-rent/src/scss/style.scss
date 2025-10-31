@@ -89,14 +89,11 @@ main {
     display: flex;
     align-items: center;
     text-decoration: none;
-    
-    // 移除 hover 的颜色和缩放效果
-    &:hover {
-    }
+  
 
     .brand-logo {
-      height: 40px; // 设定 logo 高度
-      width: auto; // 宽度自适应
+      height: 40px;
+      width: auto;
       display: block;
       
       // 平板版调整
@@ -360,7 +357,7 @@ main {
 .hero {
   min-height: 100vh;
   padding: 100px 0 0;
-  background-image: url('/images/OR_web_Hero banner.png');
+  background-image: url('/images/OR_web_HeroBanner.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -376,7 +373,7 @@ main {
   // 手機版調整
   @media ($mediaSm) {
     padding: 90px 0 60px;
-    background-image:url('/images/OR_mob_Hero banner.png');
+    background-image:url('/images/OR_mob_HeroBanner.png');
   }
   
   .hero-container {
@@ -599,7 +596,7 @@ main {
 
   // 手機版添加實際的手機圖片
   @media ($mediaSm) {
-    // background-image: url('/images/OR_mob_Hero banner.png');
+    // background-image: url('/images/OR_mob_HeroBanner.png');
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
