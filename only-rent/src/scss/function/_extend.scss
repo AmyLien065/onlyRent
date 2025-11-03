@@ -59,7 +59,7 @@
     &::placeholder {
         color: $Basic-6;
         font-size: $f-s-xs;
-        font-weight: $f-w-r;
+        font-weight: $f-w-400;
     }
 }
 
@@ -80,6 +80,6 @@
 
 %list-title {
     font-size: $f-s-lg;
-    font-weight: $f-w-m;
+    font-weight: $f-w-600;
     margin-bottom: $space-xs;
 }

@@ -15,7 +15,7 @@ const Skills = () => {
       <div className="skills-container">
         {/* 標題區 */}
         <div className="skills-header">
-          <div className="skills-subtitle">#技能</div>
+          <div className="skills-subtitle"># 技能</div>
           <h2 className="skills-title">
             不設限技能發佈<br />
             每一種才華 都值得被看見！

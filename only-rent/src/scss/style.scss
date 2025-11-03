@@ -222,7 +222,7 @@ main {
 
 .navbar-cta {
   .cta-button {
-    background: transparent;
+    background: $Basic-6;
     color: $Basic-1;
     border: 2px solid $Basic-1; 
     padding: 0.75rem 1.5rem;
@@ -439,7 +439,7 @@ main {
   .hero-subtitle {
     color: $Basic-1;
     font-size: $f-s-xl;
-    font-weight: $f-w-r;
+    font-weight: $f-w-400;
     margin-bottom: $space-lg;
     font-family: $Family-TC;
 
@@ -453,7 +453,7 @@ main {
 .hero-title {
   min-width: 600px;
   font-size: 4.5rem;
-  font-weight: $f-w-b;
+  font-weight: $f-w-700;
   line-height: 1.5;
   margin-bottom: $space-xl;
   color: $Basic-1;
@@ -461,7 +461,7 @@ main {
   
   @media (max-width: 968px) {
     font-size: 2.5rem;
-    font-weight: $f-w-b;
+    font-weight: $f-w-700;
   }
 
   // 輪播容器
@@ -677,9 +677,13 @@ main {
   margin-bottom: 80px;
   position: relative;
   gap: 60px;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
 
    @media (max-width: 640px) {
     gap: 40px; // 手機版縮小間距
+    max-width: 100%;
   }
   
 }
@@ -687,21 +691,22 @@ main {
 .tab-btn {
   background: transparent;
   border: none;
-  padding: 15px 40px;
+  padding: 15px 60px; 
   font-size: $f-s-lg;
-  font-weight: $f-w-m;
+  font-weight: $f-w-500;
   color: $Basic-7;
   cursor: pointer;
   position: relative;
   transition: all 0.3s ease;
   font-family: $Family-TC;
+  min-width: 330px;
   
   @media (max-width: 640px) {
     padding: 12px 30px;
     font-size: $f-s-md;
+    min-width: 150px; 
   }
   
-
   
 // 預設狀態：最淺的灰色底線
   &::after {
@@ -728,7 +733,7 @@ main {
   // 激活狀態：黑色
   &.active {
     color: $Basic-9;
-    font-weight: $f-w-b;
+    font-weight: $f-w-700;
     
     &::after {
       background: $Basic-9; // 激活時變成黑色
@@ -762,14 +767,14 @@ main {
   .content-subtitle {
     color: $Primary-500;
     font-size: $f-s-lg;
-    font-weight: $f-w-m;
+    font-weight: $f-w-500;
     margin-bottom: $space-md;
     font-family: $Family-TC;
   }
   
   .content-title {
     font-size: 1.875rem;
-    font-weight: $f-w-r;
+    font-weight: $f-w-400;
     color: $Basic-9;
     line-height: 1.4;
     max-width: 1100px;
@@ -877,9 +882,9 @@ main {
 .feature-content {
   .feature-title {
     font-size: $f-s-xl;
-    font-weight: $f-w-b;
+    font-weight: $f-w-500;
     color: $Basic-9;
-    margin-bottom: $space-md;
+    margin-bottom: 16px;
     font-family: $Family-TC;
   }
   
@@ -895,32 +900,130 @@ main {
 .feature-visual {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-end; // 👈 改為底部對齊（原本是 center）
+  margin-top: auto; // 👈 新增：推到底部
+  margin-bottom: -40px; // 👈 新增：讓圖片延伸到卡片邊緣（抵消 card 的 padding）
+  margin-left: -40px; // 👈 新增：左側靠邊
+  margin-right: -40px; // 👈 新增：右側靠邊
+
+  @media (max-width: 768px) {
+    margin-bottom: -25px; // 手機版調整
+    margin-left: -25px;
+    margin-right: -25px;
+  }
+
   
   .feature-image {
     width: 100%;
-    max-width: 250px;
     height: auto;
-    border-radius: 12px;
+    border-radius: 0;
     
-    // 針對第二排的圖片調整
-    .features-row-2 & {
-      max-width: 200px;
+
+    // === 我要接案 Tab 的圖片 ===
+    
+    // 1. 時間彈性
+    &[alt*="時間彈性"] {
+      max-width: 280px;
+      
+      @media (max-width: 768px) {
+        max-width: 240px;
+      }
+    }
+    
+    // 2. 安全溝通
+    &[alt*="安全溝通"] {
+      max-width: 300px;
+      
+      @media (max-width: 768px) {
+        max-width: 260px;
+      }
+    }
+    
+    // 3. 個人品牌
+    &[alt*="個人品牌"] {
+      max-width: 290px;
+      @media (max-width: 768px) {
+        max-width: 250px;
+      }
+    }
+
+    // 4. 透明交易（第二排 - 評分圖表）
+    &[alt*="透明交易"] {
+      max-width: 280px;
+      
+      @media (max-width: 768px) {
+        max-width: 240px;
+      }
+    }
+    
+    // 5. 金流保障（第二排）
+    &[alt*="金流保障"] {
+      max-width: 180px;
+      
+      @media (max-width: 768px) {
+        max-width: 150px;
+      }
+    }
+
+    // === 我要找人 Tab 的圖片 ===
+    
+    // 1. 身份驗證
+    &[alt*="身份驗證"],
+    &[alt*="身分驗證"] {
+      max-width: 270px;
+      
+      @media (max-width: 768px) {
+        max-width: 230px;
+      }
+    }
+    
+    // 2. 即時溝通
+    &[alt*="即時溝通"] {
+      max-width: 285px;
+      
+      @media (max-width: 768px) {
+        max-width: 245px;
+      }
+    }
+
+    // 3. 時間彈性（我要找人版）- 使用圖片檔名區分
+    &[src*="time-flexible-3"] {
+      max-width: 275px;
+      
+      @media (max-width: 768px) {
+        max-width: 235px;
+      }
+    }
+
+
+    // 4. 透明機制（第二排）
+    &[alt*="透明交易"] {
+      max-width: 290px;
       
       @media (max-width: 768px) {
         max-width: 250px;
       }
     }
     
-    // 金流保障圖標特殊處理
-    &[alt*="金流保障"] {
-      max-width: 120px;
+    // 5. 金流保障（我要找人版）- 使用圖片檔名區分
+    &[src*="payment-security-2"] {
+      max-width: 185px;
+      
+      @media (max-width: 768px) {
+        max-width: 155px;
+      }
     }
     
-    // 評分圖表特殊處理  
-    &[alt*="透明交易"] {
-      max-width: 200px;
+
+    // 針對第二排的圖片調整
+    .features-row-2 & {
+      max-width: 300px;
+      
+      @media (max-width: 768px) {
+        max-width: 100%;
+      }
     }
+    
   }
 }
 
@@ -938,6 +1041,10 @@ main {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 2rem;
+
+    @media (max-width: 768px) {
+    padding: 0 1rem;
+  }
   }
 }
 
@@ -949,14 +1056,14 @@ main {
   .skills-subtitle {
     color: $Primary-500;
     font-size: $f-s-lg;
-    font-weight: $f-w-m;
+    font-weight: $f-w-500;
     margin-bottom: $space-md;
     font-family: $Family-TC;
   }
   
   .skills-title {
     font-size: clamp(1.8rem, 4vw, 2.5rem);
-    font-weight: $f-w-b;
+    font-weight: $f-w-700;
     color: $Basic-9;
     line-height: 1.4;
     margin-bottom: $space-xl;
@@ -1042,7 +1149,7 @@ main {
   padding: 12px 24px;
   border-radius: 25px;
   font-size: $f-s-md;
-  font-weight: $f-w-m;
+  font-weight: $f-w-400;
   font-family: $Family-TC;
   white-space: nowrap;
   cursor: pointer;
@@ -1065,7 +1172,7 @@ main {
 // 底部說明文字
 .skills-footer {
   text-align: center;
-  color: $Basic-6;
+  color: $Basic-7;
   font-size: $f-s-sm;
   margin-top: 40px;
   font-family: $Family-TC;
@@ -1118,7 +1225,7 @@ main {
 // Steps 區塊樣式
 .steps {
   padding: 100px 0 150px 0; // 增加底部 padding 給圓角留空間
-  background: $Basic-1;
+  background: #F6F8FA;
   border-radius: 0 0 50px 50px; // 下緣圓角，與下個section的交界處
   position: relative;
   z-index: 3; // 設定適當的 z-index
@@ -1155,7 +1262,7 @@ main {
   .steps-subtitle {
     color: $Primary-500;
     font-size: $f-s-lg;
-    font-weight: $f-w-m;
+    font-weight: $f-w-600;
     margin-bottom: $space-md;
     font-family: $Family-TC;
 
@@ -1167,7 +1274,7 @@ main {
   
   .steps-title {
     font-size: clamp(1.8rem, 4vw, 2.5rem);
-    font-weight: $f-w-b;
+    font-weight: $f-w-700;
     color: $Basic-9;
     line-height: 1.4;
     margin-bottom: $space-xl;
@@ -1383,7 +1490,7 @@ main {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: $f-w-b;
+  font-weight: $f-w-700;
   font-family: $Family-TC;
   align-self: flex-start;
   margin-bottom: 20px;
@@ -1566,7 +1673,7 @@ main {
     text-align: center;
     color: $Primary-400;
     font-size: $f-s-lg;
-    font-weight: $f-w-m;
+    font-weight: $f-w-600;
     margin-bottom: $space-lg;
     font-family: $Family-TC;
     line-height: 1.4;
@@ -1575,7 +1682,7 @@ main {
   .about-title {
     text-align: center;
     font-size: clamp(1.8rem, 4vw, 3rem);
-    font-weight: $f-w-b;
+    font-weight: $f-w-700;
     color: $Basic-1;
     line-height: 1.3;
     margin-bottom: 100px;
@@ -1675,14 +1782,14 @@ main {
   .faq-subtitle {
     color: $Primary-500;
     font-size: $f-s-lg;
-    font-weight: $f-w-m;
+    font-weight: $f-w-600;
     margin-bottom: $space-md;
     font-family: $Family-TC;
   }
   
   .faq-title {
     font-size: clamp(1.8rem, 4vw, 2.5rem);
-    font-weight: $f-w-b;
+    font-weight: $f-w-700;
     color: $Basic-9;
     line-height: 1.4;
     margin: 0;
@@ -1739,7 +1846,7 @@ main {
   
   .question-number {
     color: $Primary-500;
-    font-weight: $f-w-b;
+    font-weight: $f-w-700;
     font-size: $f-s-lg;
     font-family: $Family-TC;
     min-width: 25px;
@@ -1748,7 +1855,7 @@ main {
   .question-text {
     flex: 1;
     font-size: $f-s-lg;
-    font-weight: $f-w-m;
+    font-weight: $f-w-600;
     color: $Basic-9;
     font-family: $Family-TC;
     line-height: 1.4;
@@ -1874,14 +1981,14 @@ main {
   .cta-subtitle {
     color: $Primary-400;
     font-size: $f-s-lg;
-    font-weight: $f-w-m;
+    font-weight: $f-w-600;
     margin-bottom: $space-lg;
     font-family: $Family-TC;
   }
   
   .cta-title {
     font-size: clamp(2rem, 5vw, 3.5rem);
-    font-weight: $f-w-b;
+    font-weight: $f-w-700;
     color: $Basic-1;
     line-height: 1.3;
     margin-bottom: $space-lg;
@@ -1957,7 +2064,7 @@ main {
   border: none;
   border-radius: 50px;
   font-size: $f-s-md;
-  font-weight: $f-w-m;
+  font-weight: $f-w-600;
   font-family: $Family-TC;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -2086,7 +2193,7 @@ main {
 .field-label {
   color: $Basic-9;
   font-size: $f-s-md;
-  font-weight: $f-w-m;
+  font-weight: $f-w-600;
   font-family: $Family-TC;
 }
 
@@ -2171,7 +2278,7 @@ main {
   padding: 1.25rem 2rem;
   border-radius: 15px;
   font-size: $f-s-lg;
-  font-weight: $f-w-m;
+  font-weight: $f-w-600;
   font-family: $Family-TC;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -2203,7 +2310,7 @@ main {
   font-size: $f-s-md;
   font-family: $Family-TC;
   text-align: center;
-  font-weight: $f-w-m;
+  font-weight: $f-w-600;
   animation: slideInUp 0.5s ease-out;
   
   &.success {
