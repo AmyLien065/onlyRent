@@ -41,10 +41,10 @@ const Footer = () => {
           <h4 className="footer-title">Taiwan Agent</h4>
           <div className="contact-info">
             <p>煦澄科技有限公司</p>
-            <p>台北市中正區金山北路一號六樓</p>
-            <p>onlyrent0404@gmail.com</p>
-            <p>統編 83746921</p>
-            <p>公司聯絡人：王小明</p>
+            <p>台北市中正區金山北路一號六樓之三</p>
+            <p>onlyrent683@gmail.com</p>
+            <p>統編：60539227</p>
+            <p>公司聯絡人：劉若薇</p>
           </div>
         </div>
 
