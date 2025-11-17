@@ -28,7 +28,7 @@ const Steps = forwardRef((props, ref) => {
       <div className="steps-container">
         {/* 左側標題區 */}
         <div className="steps-header">
-          <div className="steps-subtitle">#預約＆搶單</div>
+          <div className="steps-subtitle"># 預約＆搶單</div>
           <h2 className="steps-title">
             只需 3 步驟<br />
             輕鬆完成合作
