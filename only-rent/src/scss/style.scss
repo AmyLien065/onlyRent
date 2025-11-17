@@ -403,7 +403,7 @@ main {
   
   .hero-container {
     max-width: 1500px;
-    margin: 0 auto;
+    margin: 0 50px;
     padding: 0 1rem;
     display: flex;
     gap: 4rem;
@@ -451,37 +451,35 @@ main {
 
   // Hero 標題輪播效果樣式 - 基礎版
 .hero-title {
-  min-width: 600px;
   font-size: 4.5rem;
   font-weight: $f-w-700;
   line-height: 1.5;
   margin-bottom: $space-xl;
   color: $Basic-1;
   font-family: $Family-TC;
+
+  // 👇 桌機版才設定 min-width
+  @media (min-width: 969px) {
+    // min-width: 600px;
+  }
   
   @media (max-width: 968px) {
     font-size: 2.5rem;
     font-weight: $f-w-700;
+    min-width: unset;
+    width: 100%;
   }
 
   // 輪播容器
   .keyword-carousel {
     position: relative;
     display: inline-block;
-    min-width: 400px; // 增加寬度容納中文
     height: 1.2em; // 固定高度防止文字跳動
     text-align: left;
     vertical-align: top; // 確保對齊
 
-    
-    // 手機版調整
-    @media (max-width: 968px) {
-      min-width: 280px;
-    }
-    
-    @media (max-width: 480px) {
-      min-width: 200px;
-    }
+    width: auto;  // 👈 自動寬度
+    min-width: unset;  // 👈 移除最小寬度限制
   }
 
   // 輪播項目
@@ -489,7 +487,9 @@ main {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
+    width: auto;
+    display: inline-block;
+    white-space: nowrap;  
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -538,7 +538,6 @@ main {
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
-
   }
     
     // 激活狀態
@@ -1126,9 +1125,11 @@ main {
   animation: marquee 30s linear infinite;
   width: max-content;
   
-  // 暫停動畫當滑鼠懸停
-  &:hover {
-    animation-play-state: paused;
+  // 暫停動畫當滑鼠懸停 - 只在桌機版生效
+  @media (min-width: 641px) {  // 👈 新增：只在桌機版啟用 hover 暫停
+    &:hover {
+      animation-play-state: paused;
+    }
   }
 }
 
@@ -1154,14 +1155,36 @@ main {
   white-space: nowrap;
   cursor: pointer;
   transition: all 0.3s ease;
-  
-  // Hover 效果
-  &:hover {
-    background: $Primary-400;
-    transform: scale(1.05);
-    box-shadow: 0 4px 15px rgba($Primary-500, 0.3);
+
+  // 桌機版才啟用 Hover 效果
+  @media (min-width: 641px) {
+    &:hover {
+      background: $Primary-400;
+      transform: scale(1.05);
+      box-shadow: 0 4px 15px rgba($Primary-500, 0.3);
+    }
   }
   
+  // 👇 手機版禁用所有交互效果
+  @media (max-width: 640px) {
+    cursor: default;  // 👈 改為普通游標
+    transition: none;  // 👈 移除過渡效果
+    
+    // 👈 禁用 active 狀態
+    &:active {
+      background: $Primary-500;  // 保持原色
+      transform: none;
+      box-shadow: none;
+    }
+    
+    // 👈 禁用點擊高亮
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;  // 👈 禁用文字選取
+    
+    padding: 10px 20px;
+    font-size: $f-s-sm;
+  }
+
   // 響應式調整
   @media (max-width: 768px) {
     padding: 10px 20px;
@@ -2106,7 +2129,7 @@ main {
     border-radius: 0;
   }
   
-  .cta-container {
+  .cta .cta-container {
     padding: 0 1rem;  // 👈 確保內容有適當的內邊距
   }
 
@@ -2123,10 +2146,11 @@ main {
   }
 
   // 👇 表單區域滿版設定
-  .advanced-form-wrapper {
+  .cta .advanced-form-wrapper {
     max-width: 100%;  // 👈 移除最大寬度限制
     margin: 1.5rem 0 0;  // 👈 移除左右 margin
     padding: 1.5rem 1rem;  // 👈 調整內部 padding
+    border-radius: 15px;
   }
 
 }
