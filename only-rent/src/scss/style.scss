@@ -812,6 +812,44 @@ main {
       gap: 30px;
       overflow: hidden;
     }
+
+    // 👇 針對第二張卡片（安全溝通）的特殊調整
+    &:nth-child(2) {
+      .feature-visual {
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px;
+        
+        .feature-image {
+          max-width: 320px;
+          
+          @media (max-width: 768px) {
+            max-width: 270px;
+          }
+        }
+      }
+    }
+
+
+    // 👇 針對第三張卡片（個人品牌）的特殊調整
+    &:nth-child(3) {
+      .feature-visual {
+        margin-bottom: -20px;
+        
+        @media (max-width: 768px) {
+          margin-bottom: -10px;
+        }
+        
+        .feature-image {
+          max-width: 290px;
+          
+          @media (max-width: 768px) {
+            max-width: 250px;
+          }
+        }
+      }
+    }
+
     }
   }
   
@@ -840,17 +878,29 @@ main {
       // 內容區域調整
       .feature-content {
         flex: 1;
-        min-width: 0; // 防止文字溢出
+        min-width: 0;
       }
       
       // 圖片區域調整
       .feature-visual {
-        flex: 0 0 auto;
-        min-width: 200px; // 給圖片一個最小寬度
-        
+        flex: 0 0 45%;
+        display: flex;
+        align-items: center;  // 👈 垂直置中
+        justify-content: center;  // 👈 水平置中
+
+        // 👇 移除所有負邊距（第二排不需要）
+        margin-top: 0;
+        margin-bottom: 0;
+        margin-left: 0;
+        margin-right: 0;
+      
+        // 👇 新增內邊距提供呼吸空間
+        padding: 20px;
+
         @media (max-width: 768px) {
-          min-width: auto;
+          flex: 0 0 auto;
           width: 100%;
+          padding: 10px;
         }
       }
     }
@@ -899,14 +949,14 @@ main {
 .feature-visual {
   display: flex;
   justify-content: center;
-  align-items: flex-end; // 👈 改為底部對齊（原本是 center）
-  margin-top: auto; // 👈 新增：推到底部
-  margin-bottom: -40px; // 👈 新增：讓圖片延伸到卡片邊緣（抵消 card 的 padding）
-  margin-left: -40px; // 👈 新增：左側靠邊
-  margin-right: -40px; // 👈 新增：右側靠邊
+  align-items: flex-end; 
+  margin-top: auto; 
+  margin-bottom: -40px; 
+  margin-left: -40px; 
+  margin-right: -40px; 
 
   @media (max-width: 768px) {
-    margin-bottom: -25px; // 手機版調整
+    margin-bottom: -25px; 
     margin-left: -25px;
     margin-right: -25px;
   }
@@ -930,37 +980,52 @@ main {
     }
     
     // 2. 安全溝通
-    &[alt*="安全溝通"] {
-      max-width: 300px;
+    .features-row-1 .feature-card:nth-child(2) & {
+    margin-bottom: 20px;  // 👈 图片上移
+    align-items: center;
+    justify-content: center;
+    
+    .feature-image {
+      max-width: 320px;
       
       @media (max-width: 768px) {
-        max-width: 260px;
+        max-width: 270px;
       }
     }
+  }
     
     // 3. 個人品牌
-    &[alt*="個人品牌"] {
-      max-width: 290px;
+    .features-row-1 .feature-card:nth-child(3) & {
+    margin-bottom: -20px;
+    
+    .feature-image {
+      max-width: 290px; 
+      
       @media (max-width: 768px) {
         max-width: 250px;
       }
     }
+  }
 
     // 4. 透明交易（第二排 - 評分圖表）
     &[alt*="透明交易"] {
-      max-width: 280px;
+      max-width: 300px; 
+      width: 100%;
+      height: auto;
       
       @media (max-width: 768px) {
-        max-width: 240px;
+      max-width: 260px;
       }
     }
     
     // 5. 金流保障（第二排）
     &[alt*="金流保障"] {
-      max-width: 180px;
+      max-width: 160px;  
+      width: 100%;
+      height: auto;
       
       @media (max-width: 768px) {
-        max-width: 150px;
+        max-width: 130px;
       }
     }
 
@@ -1006,10 +1071,10 @@ main {
     
     // 5. 金流保障（我要找人版）- 使用圖片檔名區分
     &[src*="payment-security-2"] {
-      max-width: 185px;
+      max-width: 150px;
       
       @media (max-width: 768px) {
-        max-width: 155px;
+        max-width: 130px;
       }
     }
     
@@ -1025,6 +1090,46 @@ main {
     
   }
 }
+
+// 👇 新增：針對第二排卡片的特殊調整
+.features-row-2 {
+  .feature-card {
+    // 確保圖片在右側並置中
+    .feature-visual {
+      align-items: center;  // 👈 改為垂直置中（原本是 flex-end）
+      margin-bottom: 0;  // 👈 移除底部負邊距
+      margin-left: 0;  // 👈 移除左側負邊距
+      margin-right: 0;  // 👈 移除右側負邊距
+      justify-content: flex-end;  // 👈 確保圖片靠右
+      padding: 20px;  // 👈 新增內邊距
+      
+      @media (max-width: 768px) {
+        justify-content: center;
+        padding: 10px;
+      }
+    }
+  }
+}
+
+// 👇 新增：針對第一排第二張卡片（安全溝通）的特殊調整
+.features-row-1 {
+  .feature-card:nth-child(2) {
+    // 安全溝通卡片
+    .feature-visual {
+      align-items: center;  // 👈 改為垂直置中
+      justify-content: center;  // 👈 改為水平置中
+      margin-bottom: -20px;  // 👈 減少底部負邊距
+      min-height: 180px;  // 👈 確保圖片有足夠空間
+      
+      @media (max-width: 768px) {
+        margin-bottom: -15px;
+        min-height: 150px;
+      }
+    }
+  }
+}
+
+
 
 // Feature區塊結尾
 
