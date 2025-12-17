@@ -50,10 +50,9 @@ main {
   top: 0;
   left: 0;
   width: 100%;
-  background: linear-gradient(to left,$Basic-2, $Basic-7);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px); // Safari 支援
-  border-radius: 0 0 20px 20px;
+  background: #00000038;
+  // backdrop-filter: blur(10px);
+  // -webkit-backdrop-filter: blur(10px); // Safari 支援
   padding: 1rem 2rem;
   display: flex;
   align-items: center;
@@ -69,13 +68,11 @@ main {
    // 平板版調整（641px - 970px）
   @media (min-width: 641px) and (max-width: 970px) {
     padding: 0.75rem 1.5rem;
-    border-radius: 0 0 15px 15px;
   }
 
   // 手機版調整（≤640px）
   @media ($mediaSm) {
     padding: 0.75rem 1rem;
-    border-radius: 0 0 15px 15px;
   }
 
   &.scrolled {
@@ -129,11 +126,11 @@ main {
     right: -100%;
     width: 280px;
     height: 100vh;
-    background: linear-gradient(to bottom, $Basic-2, $Basic-1);
+    background: $Basic-1;
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     flex-direction: column;
-    padding: 80px 0 2rem 0;
+    padding: 80px 0 80px 0;
     gap: 0;
     transition: right 0.3s ease;
     box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
@@ -194,26 +191,19 @@ main {
       padding: 0.4rem 0;
     }
 
-    // 手機版調整
+    // 手機版調整 - 完全禁用交互效果
     @media ($mediaSm) {
       color: $Basic-9;
       padding: 1rem 0;
       font-size: 1rem;
       border-radius: 8px;
       text-align: left; 
+      transition: none; //禁用過渡效果
+      -webkit-tap-highlight-color: transparent; //禁用點擊高亮
 
       // 手機版移除底線效果
       &::after {
       display: none;
-    }
-      
-      &:hover {
-      color: $Basic-9;
-      background: transparent;
-    }
-      &:active {
-      color: $Basic-9;
-      background: transparent;
     }
 
     }
@@ -289,7 +279,7 @@ main {
   .hamburger-line {
     width: 25px;
     height: 3px;
-    background: $Basic-10;
+    background: $Basic-1;
     margin: 3px 0;
     transition: transform 0.3s ease, opacity 0.3s ease; 
     border-radius: 2px;
@@ -336,11 +326,7 @@ main {
         padding: 0; 
         margin: 0;   
         
-        &:hover {
-          transform: none;
-          filter: none; 
-        }
-
+        &:hover,
         &:active {
           transform: none;
           filter: none;
