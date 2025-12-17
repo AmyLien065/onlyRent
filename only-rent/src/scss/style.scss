@@ -389,7 +389,7 @@ main {
   
   .hero-container {
     max-width: 1500px;
-    margin: 0 50px;
+    margin: 0 120px;
     padding: 0 1rem;
     display: flex;
     gap: 4rem;
@@ -407,6 +407,7 @@ main {
       flex-direction: column;
       gap: 3rem;
       text-align: center;
+      margin: 0 auto;
       padding: 0 1rem;
       min-height: auto;
       align-items: stretch; // 讓子元素佔滿寬度
@@ -426,7 +427,7 @@ main {
     color: $Basic-1;
     font-size: $f-s-xl;
     font-weight: $f-w-400;
-    margin-bottom: $space-lg;
+    margin: 40px 0 0 0;
     font-family: $Family-TC;
 
      @media (max-width: 968px) {
@@ -649,9 +650,11 @@ main {
     padding: 0 2rem;
     position: relative;
     z-index: 3; // 內容層級
-    
-    // 確保容器不會遮蓋圓角
-    padding-top: 50px; // 給圓角留出空間
+    padding-top: 50px; // 確保容器不會遮蓋圓角 // 給圓角留出空間
+
+    @media ($mediaSm) {
+      padding: 0 1rem;
+    }
   }
 }
 
@@ -718,7 +721,7 @@ main {
   // 激活狀態：黑色
   &.active {
     color: $Basic-9;
-    font-weight: $f-w-700;
+    font-weight: $f-w-500;
     
     &::after {
       background: $Basic-9; // 激活時變成黑色
@@ -758,7 +761,7 @@ main {
   }
   
   .content-title {
-    font-size: 1.875rem;
+    font-size: 1.5rem;
     font-weight: $f-w-400;
     color: $Basic-9;
     line-height: 1.4;
@@ -916,7 +919,7 @@ main {
 
 .feature-content {
   .feature-title {
-    font-size: $f-s-xl;
+    font-size: $f-s-lg;
     font-weight: $f-w-500;
     color: $Basic-9;
     margin-bottom: 16px;
@@ -1951,7 +1954,7 @@ main {
 // 問題區域
 .faq-question {
   display: flex;
-  align-items: center;
+  align-items: flex-start; // 但其實center才有對齊><
   gap: 15px;
   padding: 25px 30px;
   cursor: pointer;
@@ -1965,14 +1968,14 @@ main {
   .question-number {
     color: $Basic-9;
     font-weight: $f-w-500;
-    font-size: $f-s-lg;
+    font-size: $f-s-md;
     font-family: $Family-TC;
     min-width: 25px;
   }
   
   .question-text {
     flex: 1;
-    font-size: $f-s-lg;
+    font-size: $f-s-md;
     font-weight: $f-w-500;
     color: $Basic-9;
     font-family: $Family-TC;
@@ -2026,11 +2029,11 @@ main {
     
     .question-number {
       font-size: $f-s-md;
-      min-width: 20px;
+      // min-width: 20px;
     }
     
     .question-text {
-      font-size: $f-s-md;
+      font-size: $f-s-sm;
     }
   }
   
@@ -2114,7 +2117,7 @@ main {
   }
   
   .cta-description {
-    font-size: $f-s-lg;
+    font-size: $f-s-md;
     color: rgba($Basic-1, 0.9);
     line-height: 1.6;
     margin-bottom: $space-xxl;
