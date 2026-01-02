@@ -860,6 +860,28 @@ main {
   margin-top: auto;
 }
 
+/* =========================
+   FIX: row-2「透明交易」圖片放大 + 垂直置中（桌機）
+   ========================= */
+
+@media (min-width: 769px) {
+
+  /* 解除 row-2 被共用 feature-visual 推到底的問題 */
+  .features-row-2 .feature-visual {
+    margin-top: 0;        /* ← 關鍵：取消 auto 推底 */
+    align-items: center;  /* ← 關鍵：真正垂直置中 */
+  }
+
+  /* 只放大「透明交易」這一張 */
+  .features-row-2
+  .feature-card[data-key="/images/feature-transparent-deal.png"]
+  .feature-image {
+    max-width: 420px;     /* 你要更大就 460 / 480 */
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+}
 
 
 /* row-2：圖片鎖小，不要爆大 */
@@ -1060,6 +1082,45 @@ main {
     }
   }
 }
+
+/* =========================
+   FIX: provider tab｜row-1
+   時間彈性 & 個人品牌
+   行為：貼底 + overflow:hidden（桌機）
+   ========================= */
+
+@media (min-width: 769px) {
+
+  /* ---------- 我要找人｜時間彈性 ---------- */
+  .features .tab-content[data-tab="provider"]
+  .features-row-1
+  .feature-card[data-key="/images/feature-time-flexible-3.png"] {
+
+    .feature-visual {
+      /* ✅ 關鍵：吃掉 card padding 40px，圖片才會貼齊卡片邊緣 */
+      margin-left: -40px;          // ADD
+      margin-right: -40px;         // ADD
+      margin-bottom: -40px;        // ADD：貼齊卡片底邊（像設計稿）
+      margin-top: 18px;            // ADD：文字到圖片距離
+
+      /* ✅ 裁切窗（剪刀） */
+      height: 260px;               // CHANGE：裁切高度（想露更多就 280）
+      overflow: hidden;            // ADD：只裁這張
+      align-items: flex-start;
+    }
+
+    .feature-image {
+      width: 120%;
+      max-width: none;
+      height: 360px;        /* 必須 > 240 才會被裁 */
+      object-fit: cover;
+      object-position: center top;
+      margin-bottom: -15px; /* 吃掉一點底部，視覺貼齊 */
+      transform: none;
+    }
+  }
+}
+
 
 
 

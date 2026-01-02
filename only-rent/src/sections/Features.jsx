@@ -49,7 +49,7 @@ const Features = forwardRef((props, ref) => {
         },
         {
           title: "即時溝通",
-          description: "一對一配對，需求可調整，不怕臨時有不了",
+          description: "一對一配對，需求可調整，再也不怕臨時聯絡不到人了",
           image: "/images/feature-time-flexible-2.png"
         },
         {
