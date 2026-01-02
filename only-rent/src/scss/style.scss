@@ -648,10 +648,9 @@ main {
   .features-container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 2rem;
+    padding: 50px 2rem 0; // ✅ 合併：top 50px、左右 2rem、bottom 0
     position: relative;
     z-index: 3; // 內容層級
-    padding-top: 50px; // 確保容器不會遮蓋圓角 // 給圓角留出空間
 
     @media ($mediaSm) {
       padding: 0 1rem;
@@ -772,356 +771,301 @@ main {
   }
 }
 
-// 功能特色布局
+/* =========================
+   Features - Cards (CLEAN)
+   只負責卡片與圖片，不碰 Tab/外框
+   ========================= */
+
 .features-grid {
   display: flex;
   flex-direction: column;
   gap: 24px;
-  
-  // 第一排 - 3個卡片
-  .features-row-1 {
-    display: flex;
-    flex-direction: row;
-    gap: 24px;
-    
-    @media ($mediaMd) {
-      flex-direction: column;
-    }
-    
-    .feature-card {
-      flex: 1;
-      height: 350px;
-      width: 320px;
-      overflow: hidden;
+}
 
-      @media ($mediaMd) {
-      height: auto;
-      width: auto;
-      flex-direction: row;
-      align-items: center;
-      gap: 30px;
-      overflow: hidden;
-    }
+.features-row-1,
+.features-row-2 {
+  display: flex;
+  gap: 24px;
 
-    // 👇 針對第二張卡片（安全溝通）的特殊調整
-    &:nth-child(2) {
-      .feature-visual {
-        align-items: center;
-        justify-content: center;
-        margin-bottom: 20px;
-        
-        .feature-image {
-          max-width: 320px;
-          
-          @media (max-width: 768px) {
-            max-width: 270px;
-          }
-        }
-      }
-    }
-
-
-    // 👇 針對第三張卡片（個人品牌）的特殊調整
-    &:nth-child(3) {
-      .feature-visual {
-        margin-bottom: -20px;
-        
-        @media (max-width: 768px) {
-          margin-bottom: -10px;
-        }
-        
-        .feature-image {
-          max-width: 290px;
-          
-          @media (max-width: 768px) {
-            max-width: 250px;
-          }
-        }
-      }
-    }
-
-    }
-  }
-  
-  // 第二排 - 2個卡片（文字圖片左右並排）
-  .features-row-2 {
-    display: flex;
-    flex-direction: row;
-    gap: 24px;
-    
-    @media ($mediaMd) {
-      flex-direction: column;
-    }
-    
-    .feature-card {
-      flex: 1;
-      // 第二排卡片改為左右並排布局
-      flex-direction: row;
-      align-items: center;
-      gap: 30px;
-      
-      @media (max-width: 768px) {
-        flex-direction: column;
-        gap: 20px;
-      }
-      
-      // 內容區域調整
-      .feature-content {
-        flex: 1;
-        min-width: 0;
-      }
-      
-      // 圖片區域調整
-      .feature-visual {
-        flex: 0 0 45%;
-        display: flex;
-        align-items: center;  // 👈 垂直置中
-        justify-content: center;  // 👈 水平置中
-
-        // 👇 移除所有負邊距（第二排不需要）
-        margin-top: 0;
-        margin-bottom: 0;
-        margin-left: 0;
-        margin-right: 0;
-      
-        // 👇 新增內邊距提供呼吸空間
-        padding: 20px;
-
-        @media (max-width: 768px) {
-          flex: 0 0 auto;
-          width: 100%;
-          padding: 10px;
-        }
-      }
-    }
+  @media (max-width: 768px) {
+    flex-direction: column;
   }
 }
 
-// 功能卡片基礎樣式
+/* 卡片：統一樣式 + 統一裁切 */
 .feature-card {
   background: $Basic-1;
   border-radius: 20px;
   padding: 40px;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
   transition: all 0.3s ease;
+
   display: flex;
-  flex-direction: column; // 第一排默認為垂直布局
+  flex-direction: column;
   gap: 20px;
-  
+
+  overflow: hidden; /* ✅ 超出就截斷 */
+  min-width: 0;
+
   &:hover {
     transform: translateY(-8px);
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
   }
-  
+
   @media (max-width: 768px) {
     padding: 25px;
   }
 }
 
-.feature-content {
-  .feature-title {
-    font-size: $f-s-lg;
-    font-weight: $f-w-500;
-    color: $Basic-9;
-    margin-bottom: 16px;
-    font-family: $Family-TC;
-  }
-  
-  .feature-description {
-    font-size: $f-s-md;
-    color: $Basic-8;
-    line-height: 1.5;
-    margin: 0;
-    font-family: $Family-TC;
+/* row-1：三張等寬，高度固定 */
+.features-row-1 .feature-card {
+  flex: 1;
+  height: 350px;
+  align-items: center;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+
+  @media (max-width: 768px) {
+    height: auto;
   }
 }
 
+/* row-2：左右並排（文字 + 圖） */
+.features-row-2 .feature-card {
+  flex: 1;
+  flex-direction: row;
+  align-items: center;
+  gap: 30px;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    text-align: center;
+  }
+}
+
+.features-row-2 .feature-content {
+  flex: 1;
+  min-width: 0;
+
+}
+
+/* 圖片容器：先給共用的置中 */
 .feature-visual {
   display: flex;
   justify-content: center;
-  align-items: flex-end; 
-  margin-top: auto; 
-  margin-bottom: -40px; 
-  margin-left: -40px; 
-  margin-right: -40px; 
+  align-items: flex-end;
+  margin-top: auto;
+}
+
+
+
+/* row-2：圖片鎖小，不要爆大 */
+.features-row-2 .feature-visual {
+  flex: 0 0 45%;
+  align-items: center;
+  justify-content: center;
+  // padding: 20px;
 
   @media (max-width: 768px) {
-    margin-bottom: -25px; 
-    margin-left: -25px;
-    margin-right: -25px;
-  }
-
-  
-  .feature-image {
     width: 100%;
-    height: auto;
-    border-radius: 0;
-    
+    padding: 10px;
+  }
+}
 
-    // === 我要接案 Tab 的圖片 ===
-    
-    // 1. 時間彈性
-    &[alt*="時間彈性"] {
-      max-width: 280px;
-      
-      @media (max-width: 768px) {
-        max-width: 240px;
-      }
+.features-row-2 .feature-image {
+  max-width: 220px; /* ✅ row-2 一律小張 */
+}
+
+/* 特例：用檔名抓，避免 alt 打架（tab 切換也穩） */
+.feature-image[src*="payment-security"] {
+  max-width: 160px;
+
+  @media (max-width: 768px) {
+    max-width: 130px;
+  }
+}
+
+.feature-image[src*="transparent"] {
+  max-width: 300px;
+
+  @media (max-width: 768px) {
+    max-width: 260px;
+  }
+}
+
+.feature-image[src*="identity-verify"] {
+  margin-bottom: 30px;
+}
+
+
+/* =========================
+   Features - Typography (Desktop + Mobile)
+   ========================= */
+
+/* ✅ 桌機預設（base） */
+.features .feature-card .feature-title {
+  font-size: $f-s-lg;
+  font-weight: $f-w-500;
+  line-height: 1.25;
+  margin-bottom: 12px;
+}
+
+.features .feature-card .feature-description {
+  font-size: $f-s-md;
+  line-height: 1.6;
+  color: $Basic-7;
+}
+
+/* ✅ 手機版覆蓋（建議跟你 layout 的 breakpoint 一致：768） */
+@media (max-width: 768px) {
+  .features .feature-card .feature-title {
+    font-size: $f-s-md;
+    font-weight: 500;
+  }
+
+  .features .feature-card .feature-description {
+    font-size: .9rem;
+  }
+}
+
+/* =========================================================
+   Features - DESKTOP row-1 per-card manual tuning
+   只處理：seeker tab / row-1 的三張
+   方法：margin 手動調整，不做全域裁切
+   貼在 Features SCSS 最底部
+   ========================================================= */
+
+@media (min-width: 769px) {
+
+  /* ✅ 共同前提：row-1 圖片區先統一置中，避免每張卡各自歪掉 */
+  .features .tab-content[data-tab="seeker"] .features-row-1 .feature-visual {
+    display: flex;                 // ADD
+    justify-content: center;       // ADD
+  }
+
+  /* =====================================================
+     1) seeker｜安全溝通（置中、完整露出、不裁切）
+     ===================================================== */
+  .features .tab-content[data-tab="seeker"]
+  .features-row-1 .feature-card[data-key="/images/feature-safe-communication.png"] {
+
+    .feature-visual {
+      align-items: center;         // CHANGE：垂直置中（你說這張沒有置中）
+      margin-top: 50px;            // ADD：文字到圖片距離
+      margin-bottom: 15px;         // ADD：與卡片底留 15px（一致視覺）
+      overflow: visible;           // ADD：不要裁切
     }
+
+    .feature-image {
+      max-width: 420px;            // CHANGE：這張通常需要大一點才像設計稿
+      width: 100%;                 // ADD：避免縮太小
+      height: auto;                // ADD
+      object-fit: contain;         // ADD：完整顯示，不裁
+      margin: 0;              // ADD：保險水平置中
+      transform: none;
+    }
+  }
+
+  /* =====================================================
+     2) seeker｜時間彈性
+     ===================================================== */
+  .features .tab-content[data-tab="seeker"]
+  .features-row-1 .feature-card[data-key="/images/feature-time-flexible.png"] {
+
+    .feature-visual {
+      margin-left: -40px;          // ADD
+      margin-right: -40px;         // ADD
+      margin-bottom: -40px;        // ADD：貼齊卡片底邊（像設計稿）
+      margin-top: 18px;            // ADD：文字到圖片距離
+
+      /* ✅ 裁切窗（剪刀） */
+      height: 280px;               // CHANGE：裁切高度（想露更多就 280）
+      overflow: hidden;            // ADD：只裁這張
+      align-items: flex-start;     // CHANGE：從上緣開始露（露瀏海/上緣）
     
-    // 2. 安全溝通
-    .features-row-1 .feature-card:nth-child(2) & {
-    margin-bottom: 20px;  // 👈 图片上移
+    }
+
+    .feature-image {
+      width: 100%;                 // CHANGE：放大讓左右更滿（可 110~130%）
+      height: auto;               // ADD：一定要 > 260 才會裁到底部
+      object-fit: cover;           // ADD
+      object-position: center top; // ADD：焦點鎖上緣
+      margin: 0;                   // ADD
+      transform: none;             // ADD：先不要用 translateY
+    }
+  }
+
+  /* =====================================================
+     3) seeker｜個人品牌（像設計稿：露上半部、底部截斷）
+     核心：在 feature-visual 做裁切窗 + 吃掉 card padding
+     ===================================================== */
+  .features .tab-content[data-tab="seeker"]
+  .features-row-1 .feature-card[data-key="/images/feature-personal-brand.png"] {
+
+    .feature-visual {
+      /* ✅ 關鍵：吃掉 card padding 40px，圖片才會貼齊卡片邊緣 */
+      margin-left: -40px;          // ADD
+      margin-right: -40px;         // ADD
+      margin-bottom: -40px;        // ADD：貼齊卡片底邊（像設計稿）
+      margin-top: 18px;            // ADD：文字到圖片距離
+
+      /* ✅ 裁切窗（剪刀） */
+      height: 260px;               // CHANGE：裁切高度（想露更多就 280）
+      overflow: hidden;            // ADD：只裁這張
+      align-items: flex-start;     // CHANGE：從上緣開始露（露瀏海/上緣）
+    }
+
+    .feature-image {
+      width: 120%;                 // CHANGE：放大讓左右更滿（可 110~130%）
+      max-width: none;             // ADD：不要被 max-width 卡住
+      height: 520px;               // ADD：一定要 > 260 才會裁到底部
+      object-fit: cover;           // ADD
+      object-position: center top; // ADD：焦點鎖上緣
+      margin: 0;                   // ADD
+      transform: none;             // ADD：先不要用 translateY
+    }
+  }
+}
+
+/* =========================
+   DESKTOP 微調：row-2「透明交易」
+   1. 圖片放大
+   2. 垂直置中
+   ========================= */
+
+@media (min-width: 769px) {
+  .features
+    .tab-content
+    .features-row-2
+    .feature-card[data-key="/images/feature-transparent-deal.png"] {
+
+    /* CHANGE：整張卡的內容垂直置中 */
     align-items: center;
-    justify-content: center;
-    
-    .feature-image {
-      max-width: 320px;
-      
-      @media (max-width: 768px) {
-        max-width: 270px;
-      }
-    }
-  }
-    
-    // 3. 個人品牌
-    .features-row-1 .feature-card:nth-child(3) & {
-    margin-bottom: -20px;
-    
-    .feature-image {
-      max-width: 290px; 
-      
-      @media (max-width: 768px) {
-        max-width: 250px;
-      }
-    }
-  }
 
-    // 4. 透明交易（第二排 - 評分圖表）
-    &[alt*="透明交易"] {
-      max-width: 300px; 
+    /* CHANGE：圖片容器也置中（保險） */
+    .feature-visual {
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* CHANGE：圖片放大 */
+    .feature-image {
+      max-width: 360px;
       width: 100%;
       height: auto;
-      
-      @media (max-width: 768px) {
-      max-width: 260px;
-      }
-    }
-    
-    // 5. 金流保障（第二排）
-    &[alt*="金流保障"] {
-      max-width: 160px;  
-      width: 100%;
-      height: auto;
-      
-      @media (max-width: 768px) {
-        max-width: 130px;
-      }
-    }
-
-    // === 我要找人 Tab 的圖片 ===
-    
-    // 1. 身份驗證
-    &[alt*="身份驗證"],
-    &[alt*="身分驗證"] {
-      max-width: 270px;
-      
-      @media (max-width: 768px) {
-        max-width: 230px;
-      }
-    }
-    
-    // 2. 即時溝通
-    &[alt*="即時溝通"] {
-      max-width: 285px;
-      
-      @media (max-width: 768px) {
-        max-width: 245px;
-      }
-    }
-
-    // 3. 時間彈性（我要找人版）- 使用圖片檔名區分
-    &[src*="time-flexible-3"] {
-      max-width: 275px;
-      
-      @media (max-width: 768px) {
-        max-width: 235px;
-      }
-    }
-
-
-    // 4. 透明機制（第二排）
-    &[alt*="透明交易"] {
-      max-width: 290px;
-      
-      @media (max-width: 768px) {
-        max-width: 250px;
-      }
-    }
-    
-    // 5. 金流保障（我要找人版）- 使用圖片檔名區分
-    &[src*="payment-security-2"] {
-      max-width: 150px;
-      
-      @media (max-width: 768px) {
-        max-width: 130px;
-      }
-    }
-    
-
-    // 針對第二排的圖片調整
-    .features-row-2 & {
-      max-width: 300px;
-      
-      @media (max-width: 768px) {
-        max-width: 100%;
-      }
-    }
-    
-  }
-}
-
-// 👇 新增：針對第二排卡片的特殊調整
-.features-row-2 {
-  .feature-card {
-    // 確保圖片在右側並置中
-    .feature-visual {
-      align-items: center;  // 👈 改為垂直置中（原本是 flex-end）
-      margin-bottom: 0;  // 👈 移除底部負邊距
-      margin-left: 0;  // 👈 移除左側負邊距
-      margin-right: 0;  // 👈 移除右側負邊距
-      justify-content: flex-end;  // 👈 確保圖片靠右
-      padding: 20px;  // 👈 新增內邊距
-      
-      @media (max-width: 768px) {
-        justify-content: center;
-        padding: 10px;
-      }
-    }
-  }
-}
-
-// 👇 新增：針對第一排第二張卡片（安全溝通）的特殊調整
-.features-row-1 {
-  .feature-card:nth-child(2) {
-    // 安全溝通卡片
-    .feature-visual {
-      align-items: center;  // 👈 改為垂直置中
-      justify-content: center;  // 👈 改為水平置中
-      margin-bottom: -20px;  // 👈 減少底部負邊距
-      min-height: 180px;  // 👈 確保圖片有足夠空間
-      
-      @media (max-width: 768px) {
-        margin-bottom: -15px;
-        min-height: 150px;
-      }
+      object-fit: contain;
     }
   }
 }
 
 
 
-// Feature區塊結尾
+// Features區塊結尾
+
+
 
 // Skills 區塊樣式
 .skills {
@@ -1376,6 +1320,7 @@ main {
 
    @media ($mediaSm) {
     order: 1;
+    margin: 0;
   }
   
   .steps-subtitle {
