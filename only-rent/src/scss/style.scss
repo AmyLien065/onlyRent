@@ -1371,6 +1371,7 @@ main {
 // 左側標題區
 .steps-header {
   flex: 1; // 佔 1 份
+  margin: 0 0 0 70px;
   min-width: 320px; // 設定最小寬度避免過窄
 
    @media ($mediaSm) {
@@ -1408,7 +1409,7 @@ main {
     // 平板版和手機版隱藏換行
     // 響應式字體調整
     @media ($mediaLg) {
-      font-size: $f-s-sm;
+      font-size: $f-s-md;
       br {
         display: none;
       }
@@ -2074,7 +2075,12 @@ main {
 // CTA 區塊樣式
 .cta {
   padding: 100px 0;
-  background-image: url('/images/OR_web_Background.png');
+  background-image: 
+  linear-gradient(
+      rgba(0, 0, 0, 0.5),
+      rgba(0, 0, 0, 0.5)
+    ),
+  url('/images/OR_web_Background.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -2225,7 +2231,7 @@ main {
   }
   
   .cta .cta-container {
-    padding: 0 1rem;  // 👈 確保內容有適當的內邊距
+    padding: 0 1rem; 
   }
 
   .cta-content {
@@ -2242,9 +2248,9 @@ main {
 
   // 👇 表單區域滿版設定
   .cta .advanced-form-wrapper {
-    max-width: 100%;  // 👈 移除最大寬度限制
-    margin: 1.5rem 0 0;  // 👈 移除左右 margin
-    padding: 1.5rem 1rem;  // 👈 調整內部 padding
+    max-width: 100%; 
+    margin: 1.5rem 0 0; 
+    padding: 1.5rem 1rem; 
     border-radius: 15px;
   }
 
@@ -2291,8 +2297,6 @@ main {
 //   }
 // }
 
-
-// 進階表單樣式 - 新增到 style.scss
 
 // 進階表單容器
 .advanced-form-wrapper {

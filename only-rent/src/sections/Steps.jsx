@@ -35,8 +35,7 @@ const Steps = forwardRef((props, ref) => {
           </h2>
           <p className="steps-description">
             你可以快速找到合作夥伴。<br />
-            無論是臨時缺人或是想展示技能，都<br />
-            能透過簡單三步驟完成。
+            無論是臨時缺人或是想展示技能，都能透過簡單三步驟完成。
           </p>
         </div>
 
