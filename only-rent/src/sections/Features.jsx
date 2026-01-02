@@ -13,27 +13,27 @@ const Features = forwardRef((props, ref) => {
         {
           title: "時間彈性",
           description: "不再受傳統工時限制，隨時開放工作時段",
-          image: "/images/feature-time-flexible.png"
+          image: "./images/feature-time-flexible.png"
         },
         {
           title: "安全溝通",
           description: "App 內與客戶聊天，個資不會提前公開，工作與生活切分",
-          image: "/images/feature-safe-communication.png"
+          image: "./images/feature-safe-communication.png"
         },
         {
           title: "個人品牌",
           description: "打造職人主頁，透過社群互動累積口碑，吸引更多案源",
-          image: "/images/feature-personal-brand.png"
+          image: "./images/feature-personal-brand.png"
         },
         {
           title: "透明交易",
           description: "雙向評價制度，讓每一次合作都更公開、公正、可被信任",
-          image: "/images/feature-transparent-deal.png"
+          image: "./images/feature-transparent-deal.png"
         },
         {
           title: "金流保障",
           description: "平台託管金流，完成驗收撥款，確保你收到每一筆收入",
-          image: "/images/feature-payment-security.png"
+          image: "./images/feature-payment-security.png"
         }
       ]
     },
@@ -45,27 +45,27 @@ const Features = forwardRef((props, ref) => {
         {
           title: "身份驗證",
           description: "實名認證＋專人審核，降低合作風險",
-          image: "/images/feature-identity-verify.png"
+          image: "./images/feature-identity-verify.png"
         },
         {
           title: "即時溝通",
           description: "一對一配對，需求可調整，再也不怕臨時聯絡不到人了",
-          image: "/images/feature-time-flexible-2.png"
+          image: "./images/feature-time-flexible-2.png"
         },
         {
           title: "時間彈性",
           description: "依技能、服務地區找到符合需求的人才",
-          image: "/images/feature-time-flexible-3.png"
+          image: "./images/feature-time-flexible-3.png"
         },
         {
           title: "透明機制",
           description: "不需議價，每位達人的價錢與好評歷史公開透明",
-          image: "/images/feature-transparent-system.png"
+          image: "./images/feature-transparent-system.png"
         },
         {
           title: "金流保障",
           description: "任務完成驗收後才會撥款，保障雙方權益",
-          image: "/images/feature-payment-security-2.png"
+          image: "./images/feature-payment-security-2.png"
         }
       ]
     }

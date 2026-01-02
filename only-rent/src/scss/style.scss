@@ -1123,6 +1123,108 @@ main {
 
 
 
+/* =========================
+   PATCH: Mobile per-card tuning (SEEKER row-1)
+   目標：依設計稿
+   - 時間彈性：overflow hidden + 圖貼底（可微裁）
+   - 個人品牌：overflow hidden + 只露上半部、底部截斷（像你截圖）
+   - provider「時間彈性(-3)」比照個人品牌：貼底 + overflow hidden
+   ========================= */
+
+/* -------------------------
+   ✅ MOBILE ONLY
+   ------------------------- */
+@media (max-width: 768px) {
+
+  /* ========== 1) 我要接案 seeker｜row-1｜時間彈性 ========== */
+  .features .tab-content[data-tab="seeker"]
+  .features-row-1 .feature-card[data-key="/images/feature-time-flexible.png"] {
+
+    /* ✅ CHANGE：在容器上開裁切窗 + 貼底 */
+    .feature-visual {
+      /* CHANGE */
+      width: 100%;                 /* 註解：保險 */
+      height: 250px;               /* 註解：裁切窗高度（要露更多→加大；要更「貼底」→可略減） */
+      overflow: hidden;            /* ✅ 你指定：overflow hidden */
+      display: flex;               /* 註解：確保貼底生效 */
+      justify-content: center;     /* 註解：水平置中 */
+      align-items: flex-end;       /* ✅ 圖片貼底 */
+      margin-top: 10px;            /* 註解：文字與圖距離（你要更擠就改 8~10） */
+      margin-bottom: -100px;
+    }
+
+    /* ✅ CHANGE：圖片故意比視窗高，讓底部可以被吃掉一點點 */
+    .feature-image {
+      /* CHANGE */
+      width: 100%;
+      max-width: none;             /* 註解：避免被你前面 max-width:280px 卡住 */
+      height: 260px;               /* 註解：必須 > 210 才會裁切 */
+      object-fit: cover;           /* 註解：讓圖填滿裁切窗 */
+      object-position: center top; /* 註解：焦點略偏下，避免上面留太多空 */
+      margin: 0;                   /* 註解：清掉可能的 margin 干擾 */
+      transform: none;
+    }
+  }
+
+  /* ========== 2) 我要接案 seeker｜row-1｜個人品牌（只露上半部、底部截斷） ========== */
+  .features .tab-content[data-tab="seeker"]
+  .features-row-1 .feature-card[data-key="/images/feature-personal-brand.png"] {
+
+    /* ✅ CHANGE：裁切窗 + 從「上緣」開始顯示（底部被切掉） */
+    .feature-visual {
+      /* CHANGE */
+      width: 100%;
+      height: 260px;               /* ✅ 裁切窗高度（想露更多手機→加到 260） */
+      overflow: hidden;            /* ✅ 你指定：overflow hidden */
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;     /* ✅ 重點：從上開始露（你要的截斷效果） */
+      margin-top: 10px;
+      margin-bottom: -30px;            /* 註解：避免負 margin 影響 */
+    }
+
+    /* ✅ CHANGE：圖片比視窗高 → 下面自然被裁掉（像你截圖） */
+    .feature-image {
+      /* CHANGE */
+      width: 320px;                /* 註解：你截圖顯示 img 約 290px，這裡略放大更像設計稿 */
+      max-width: none;
+      height: 430px;               /* ✅ 必須 > 240 才會裁到底部 */
+      object-fit: cover;
+      object-position: center top; /* ✅ 鎖定瀏海/上緣 */
+      margin: 0;
+      transform: none;             /* ✅ 不往下推，保持「上露下切」 */
+    }
+  }
+
+  /* ========== 3) 我要找人 provider｜row-1｜時間彈性(-3) 比照個人品牌（貼底 + overflow hidden） ========== */
+  .features .tab-content[data-tab="provider"]
+  .features-row-1 .feature-card[data-key="/images/feature-time-flexible-3.png"] {
+
+    /* ✅ CHANGE：貼底裁切窗 */
+    .feature-visual {
+      /* CHANGE */
+      width: 100%;
+      height: 220px;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;       /* ✅ 貼底 */
+      margin-top: 12px;
+    }
+
+    .feature-image {
+      /* CHANGE */
+      width: 100%;
+      max-width: none;
+      height: 300px;               /* 必須 > 220 才能裁 */
+      object-fit: cover;
+      object-position: center 70%;
+      margin: 0;
+      transform: translateY(8px);  /* 微下推，視覺貼底 */
+    }
+  }
+}
+
 
 // Features區塊結尾
 
