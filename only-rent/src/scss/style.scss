@@ -806,6 +806,7 @@ main {
 
   overflow: hidden; /* ✅ 超出就截斷 */
   min-width: 0;
+  
 
   &:hover {
     transform: translateY(-8px);
@@ -814,6 +815,14 @@ main {
 
   @media (max-width: 768px) {
     padding: 25px;
+  }
+
+  @media ($mediaMd){
+    max-height: 380px;
+  }
+
+  @media($mediaSm){
+    max-height: 270px;
   }
 }
 
@@ -840,7 +849,7 @@ main {
 
   @media (max-width: 768px) {
     flex-direction: column;
-    gap: 20px;
+    gap: 15px;
     align-items: center;
     text-align: center;
   }
@@ -1471,6 +1480,7 @@ main {
       flex-direction: column;
       gap: 40px;
       text-align: center;
+      padding: 0; // ✅ ADD：移除左右 padding，讓右側紅框空白消失
     }
   }
 }
@@ -1528,20 +1538,33 @@ main {
 // 右側步驟卡片包裝器 - 新增
 .steps-cards-wrapper {
   flex: 2;
-  overflow: hidden; // 隱藏超出部分
+  // overflow: hidden; 
+  overflow-x: auto;
+  // scroll-snap-type: x mandatory;
   width: 100%;
-  // margin: 0 auto;
   
   @media ($mediaSm) {
-    order: 2;
-    margin: 0 auto; // 負邊距讓滑動容器可以延伸到螢幕邊緣
+    padding-left: 10px;   // ✅ ADD：左側內距
+    padding-right: 10px;  // ✅ ADD：右側內距（解決你紅框那條空白）
+    padding-bottom: 10px; // ✅ ADD：留給 scrollbar
+    // overflow: hidden; 
+ // order: 2;
+   
+    // margin: 0 auto; // 負邊距讓滑動容器可以延伸到螢幕邊緣
+
+    /* ✅ CHANGE（關鍵）：讓滑動區域「突破 container」，吃滿整個 viewport */
+    width: 100vw;                       // ✅ ADD
+    // margin-left: calc(50% - 50vw);      // ✅ ADD：置中容器內強制滿版
+    // margin-right: calc(50% - 50vw);     // ✅ ADD
   }
 }
 
 // 右側步驟卡片區 - 修改
 .steps-cards {
   display: flex;
-  flex-direction: row;
+  width: max-content;
+  // justify-content: center;
+  // flex-direction: row;
   gap: 30px;  // 大桌機版 (>1200px) - 3張卡片完整顯示，不滾動
   
   // 中桌機版 (971px-1200px) - 3張卡片，調整尺寸和間距
@@ -1562,9 +1585,9 @@ main {
   // 平板版使用變數 ($mediaMd) 加擴展 - 2-3張卡片可滾動
   @media ($mediaMd) {
     gap: 20px;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    padding: 10px 0;
+    // overflow-x: auto;
+    // scroll-snap-type: x mandatory;
+    // padding: 10px 0;
     
     // 顯示滾動條讓用戶知道可以滾動
     &::-webkit-scrollbar {
@@ -1587,10 +1610,16 @@ main {
   // 手機版 ($mediaSm) - 修改為完整顯示一張+第二張露出一節
   @media ($mediaSm) {
     gap: 15px;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    // padding: 0 10px 10px 0; // 增加底部 padding 給滾動條留空間
+    // overflow-x: auto;
+    // scroll-snap-type: x mandatory;
     
+    /* ✅ ADD（關鍵）：用 track 自己的 padding 控制左右留白
+       這樣內容可以「貼齊螢幕邊緣」同時又有設計稿內距 */
+    // padding-left: 2rem;   // ✅ ADD：左側內距
+    // padding-right: 2rem;  // ✅ ADD：右側內距（解決你紅框那條空白）
+    // padding-bottom: 10px; // ✅ ADD：留給 scrollbar
+
+
     // 極細滾動條
     &::-webkit-scrollbar {
       height: 4px;                // 稍微增加高度確保可見
